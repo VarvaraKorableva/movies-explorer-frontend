@@ -1,0 +1,113 @@
+.navigation {
+  display: flex;
+  justify-content: end;
+}
+
+.navigation__container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    width: 70%;
+}
+
+@media screen and (max-width: 550px) {
+    .navigation__container {
+        width: 100%;
+    }
+  }
+
+.navigation__accoundpic {
+    background-image: url(../../images/icon__COLOR_icon-main.svg);
+    background-repeat: no-repeat;
+    width: 26px;
+    height: 30px;
+    margin-left: 17px;
+    background-color: #F9F9F9;
+    background-position: center;
+    border-radius: 4%;
+}
+
+.navigation__accound {
+    margin: 0;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+}
+
+.navigation__accoundwrapper {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 92px;
+}
+
+@media screen and (max-width: 500px) {
+    .navigation__accoundwrapper {
+        margin-bottom: 48px;
+    }
+  }
+
+.navigation_listcontainer {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 105px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media screen and (max-width: 500px) {
+    .navigation__listcontainer {
+        margin-top: 99px;
+    }
+  }
+
+.navigation__list {
+    text-align: center;
+    list-style-type: none;
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 28px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+    .navigation__list {
+        margin-bottom: 24px;
+    }
+  }
+.navigation__listlink {
+    text-decoration: none;
+    color: black;
+}
+
+.navigation__listlink_active {
+    text-underline-offset: 4px;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+}
+
+@media screen and (max-width: 500px) {
+    .navigation__listlink_active {
+        text-underline-offset: 7px;
+    }
+  }
+
+.navigation__closebtn {
+    position: absolute;
+    top:22.4px;
+    right: 22.4px;
+    width: 22px;
+    height: 22px;
+    background-image: url(../../images/Group.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}

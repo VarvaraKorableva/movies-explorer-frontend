@@ -1,0 +1,60 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.checkbox {
+  --first-color: #ffffff;
+  --second-color: #2BE080;
+  --width: 36px;
+  --height: 20px;
+  --offset: 2px;
+  --duration: 0.3s;
+  cursor: pointer;
+}
+
+.checkbox:hover {
+  filter: brightness(1.2);
+}
+
+.checkbox__div {
+  position: relative;
+  width: var(--width);
+  height: var(--height);
+  border-radius: var(--width);
+  background-color: var(--first-color);
+  transition: var(--duration);
+  border: 1px solid #2BE080;
+}
+
+.checkbox__input {
+  display: none;
+}
+
+.checkbox__input:checked ~ .checkbox__div {
+    background-color: var(--second-color);
+}
+
+.checkbox__input:checked ~ .checkbox__div::before {
+    background-color: var(--first-color);
+    left: calc(var(--width) - var(--height) + var(--offset));
+}
+
+.checkbox__div::before {
+  content: '';
+  position: absolute;
+  top: var(--offset);
+  left: var(--offset);
+  width: calc(var(--height) - 2 * var(--offset));
+  height: calc(var(--height) - 2 * var(--offset));
+  background-color: var(--second-color);
+  border-radius: 50%;
+  transition: var(--duration);
+}
+
+.filtercheckbox {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 12px;
+}

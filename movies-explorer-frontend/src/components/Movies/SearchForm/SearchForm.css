@@ -1,0 +1,98 @@
+.searchform {
+  margin-left: 70px;
+  margin-right: 70px;
+  /*margin: auto;*/
+  max-width: 1140px;
+  padding-top: 70px;
+  margin-bottom: 30px;
+  max-width: 1140px;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+@media screen and (max-width: 800px) {
+  .searchform {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .searchform {
+    margin-left: 14px;
+    margin-right: 14px;
+  }
+}
+
+.searchform__inside {
+  display: flex;
+  justify-content: space-between;
+  border: none;
+}
+
+.searchform__fieldset {
+  border: none;
+  display: flex;
+}
+
+.searchform__loop {
+  border-radius: 50%;
+  border: 1px solid #E8E8E8;
+  background-image: url(../../../images/loop.svg);
+  background-repeat: no-repeat;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 15px;
+}
+
+@media screen and (max-width: 500px) {
+  .searchform__loop {
+    display: none;
+  }
+}
+
+.aboutme__input {
+  border: none;
+  cursor: pointer;
+}
+
+.aboutme__input::placeholder {
+  font-size: 28px;
+  font-weight: 500;
+  color: #A0A0A0;
+  text-shadow: 0 5px 4px #A0A0A0;
+  text-align: center;
+}
+
+@media screen and (max-width: 1000px) {
+  .aboutme__input::placeholder {
+    text-shadow: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .aboutme__input::placeholder {
+    font-size: 18px;
+    text-shadow: none;
+    text-align: start;
+  }
+}
+
+.searchform__button {
+  background-color: #FF6838;
+  background-image: url(../../../images/loop_COLOR_invisible.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 80px;
+  height: 34px;
+  border-radius: 48px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 15px;
+  opacity: 1;
+  transition: 0.3s ease;
+}
+
+.searchform__button:hover {
+  opacity: 0.3;
+  transition: 0.3s ease;
+}

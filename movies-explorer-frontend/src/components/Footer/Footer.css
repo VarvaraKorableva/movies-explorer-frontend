@@ -1,0 +1,134 @@
+.footer {
+  min-height: 172px;
+  background-color: #FAFAFA;
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
+@media screen and (max-width: 1000px) {
+  .footer {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .footer {
+    flex-direction: column;
+    height: 243px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #ffffff;
+  }
+}
+
+.footer__title {
+  color: #A0A0A0;
+  border-bottom: 1px solid #E8E8E8;
+  padding-bottom: 20px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: auto;
+  letter-spacing: 0px;
+  margin-top: 79px;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 500px) {
+    .footer__title {
+        font-size: 12px;
+        margin-bottom: 30px;
+    }
+  }
+
+.footer__container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  .footer__container {
+    flex-direction: column-reverse;
+  }
+}
+
+.footer__date {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: auto;
+  letter-spacing: 0px;
+  margin: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .footer__date{
+    color: #A0A0A0;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 30px;
+  }
+}
+
+.footer__wrapper {
+  display: flex;
+}
+
+@media screen and (max-width: 600px) {
+  .footer__wrapper {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.footer__yandex {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: auto;
+  letter-spacing: 0%;
+  margin: 0;
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  opacity: 1;
+  transition: 0.3s ease;
+}
+
+.footer__yandex:hover {
+  transition: 0.3s ease;
+  opacity: 0.3;
+}
+
+@media screen and (max-width: 600px) {
+  .footer__yandex {
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+}
+
+.footer__link {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: auto;
+  letter-spacing: 0%;
+  margin: 0;
+  margin-left: 20px;
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+  opacity: 1;
+  transition: 0.3s ease;
+}
+
+.footer__link:hover {
+  transition: 0.3s ease;
+  opacity: 0.3;
+}
+
+@media screen and (max-width: 600px) {
+  .footer__link {
+    font-size: 12px;
+    margin: 0;
+  }
+}
