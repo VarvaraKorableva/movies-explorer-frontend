@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 function Login() {
   return ( 
     <div className='login'>
-      
       <form className='login__form'>
         <Link className='login__logolink' to="/">
         <img src={registerLogo} alt="Логотип" className='login__logo'/>
