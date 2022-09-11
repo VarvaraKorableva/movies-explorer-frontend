@@ -1,10 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './Header.css'
 import headerLogo from '../../images/logo.svg'
 
 function Header({loggedIn}) {
   const [isMobile, setIsMobile] = React.useState(false);
+  const location = useLocation();
+
 
   const handleResize = () => {
     if (window.innerWidth < 1000) {
@@ -19,7 +21,7 @@ function Header({loggedIn}) {
   })
 
   return ( 
-    <div className={`header ${loggedIn ? 'header__log' : 'header__nolog'}`}>
+    <header className={`header ${loggedIn && location.pathname === '/'? 'header__nolog' : loggedIn ? 'header__log': 'header__nolog'}`}>
       <Link to="/">
         <img src={headerLogo} alt="Логотип" className='header__logo'/>
       </Link>
@@ -53,7 +55,7 @@ function Header({loggedIn}) {
         </div>)
       }
 
-    </div>
+    </header>
   ) 
 }
 

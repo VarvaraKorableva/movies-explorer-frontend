@@ -39,6 +39,7 @@
   width: 100%;
   cursor: pointer;
   margin-bottom: 14px;
+  position: relative;
 }
 
 .moviescard__nameandtimecontainer {
@@ -72,4 +73,55 @@
   align-self: center;
   justify-content: center;
   align-items: center;
+}
+
+.moviescard__imgcontainer {
+  position: relative;
+}
+
+.moviescard__savedanddeletebtn {
+  width: 40px;
+  height: 19px;
+  border: 2px solid red;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 5;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: 0.5s ease;
+  border: none;
+  cursor: pointer;
+  background-image: url(../../../images/savedBTN.svg);
+}
+
+.moviescard__savedanddeletebtn:hover {
+  background-image: url(../../../images/deleted.svg);
+}
+
+.moviescard__savebtn {
+  background-color:#F9F9F9;
+  width: 72px;
+  height: 21px;
+  border-radius: 30px;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s ease;
+  border: none;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 9px;
+  opacity: 1;
+}
+
+.moviescard__savebtn:hover {
+  transition: 0.5s ease;
+  opacity: 0.7;
 }

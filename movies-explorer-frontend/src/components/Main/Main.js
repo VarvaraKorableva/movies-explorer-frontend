@@ -10,15 +10,17 @@ import Header from '../Header/Header'
 
 function Main({loggedIn}) {
   return (
-    <main className='main'>
-        <Header loggedIn={loggedIn}/>
+    <>
+      <Header loggedIn={loggedIn}/>
+      <main className='main'>
         <Promo/>
         <AboutProject/>
         <Techs></Techs>
         <AboutMe></AboutMe>
         <Portfolio></Portfolio>
-        <Footer></Footer>
-    </main>
+      </main>
+      <Footer></Footer>
+    </>    
   )
 }
   

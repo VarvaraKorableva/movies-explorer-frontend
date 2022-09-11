@@ -59,20 +59,19 @@
   font-size: 28px;
   font-weight: 500;
   color: #A0A0A0;
-  text-shadow: 0 5px 4px #A0A0A0;
+ /* text-shadow: 0 5px 4px #A0A0A0;*/
   text-align: center;
 }
-
+/*
 @media screen and (max-width: 1000px) {
   .aboutme__input::placeholder {
     text-shadow: none;
   }
-}
+}*/
 
 @media screen and (max-width: 500px) {
   .aboutme__input::placeholder {
     font-size: 18px;
-    text-shadow: none;
     text-align: start;
   }
 }

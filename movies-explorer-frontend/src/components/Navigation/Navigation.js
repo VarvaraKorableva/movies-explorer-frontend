@@ -4,7 +4,7 @@ import './Navigation.css'
 
 function Navigation() {
   return ( 
-    <div className='navigation'>
+    <section className='navigation'>
     <div className='navigation__container'>
         <div className='navigation__closebtn'></div>
         <ul className='navigation_listcontainer'>
@@ -24,7 +24,7 @@ function Navigation() {
            <div className='navigation__accoundpic'></div>
         </div>
     </div>     
-    </div>
+    </section>
   ) 
 }
 

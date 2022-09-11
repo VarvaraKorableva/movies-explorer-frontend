@@ -9,12 +9,12 @@ function Movies({loggedIn}) {
   return (
     <>
     <Header loggedIn={loggedIn}></Header>
-    <main className='main'>
+    <section className='main'>
         <SearchForm/>
         <MoviesCardList></MoviesCardList>
         <button class='movies__btn'>Еще</button>
+    </section>
         <Footer></Footer>
-    </main>
     </>
   )
 }

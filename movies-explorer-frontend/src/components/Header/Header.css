@@ -29,7 +29,8 @@
 
 .header__nolog {
   background-color: #465DFF;
-  
+  justify-content: space-between;
+  display: flex;
 }
 
 .header__logo {

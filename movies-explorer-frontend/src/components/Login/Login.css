@@ -36,10 +36,6 @@
   height: 38px;
   border-radius: 50%;
 }
-/*
-.login__logolink {
-    transition: 0.3s ease;
-}*/
 
 .login__logolink:hover {
   width: 40px;
@@ -104,6 +100,7 @@
    
    .login__input::placeholder {
      color: black;
+     padding-left: 15px;
    }
    
    .login__inputwrong {
@@ -114,7 +111,6 @@
      border-radius: 8%;
      margin-bottom: 20px;
      padding-left: 15px;
-     padding-right: 15px;
    }
    
    .login__input:last-of-type {

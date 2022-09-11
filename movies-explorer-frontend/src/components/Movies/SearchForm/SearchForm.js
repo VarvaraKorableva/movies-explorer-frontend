@@ -11,7 +11,7 @@ function SearchForm() {
         <fieldset className='searchform__fieldset'>
           <input className='aboutme__input' type='text' placeholder="Фильм"></input>
         </fieldset>
-        <button className='searchform__button' type='button'></button>
+        <button className='searchform__button' type='submit'></button>
       </form>
     </div>
     <FilterCheckbox></FilterCheckbox>
