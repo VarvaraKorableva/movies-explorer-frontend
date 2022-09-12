@@ -1,8 +1,11 @@
 .footer {
   min-height: 172px;
-  background-color: #FAFAFA;
+  background-color: #ffffff;
   padding-left: 70px;
   padding-right: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 @media screen and (max-width: 1000px) {

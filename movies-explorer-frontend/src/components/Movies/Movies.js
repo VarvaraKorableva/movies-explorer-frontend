@@ -10,13 +10,13 @@ function Movies({loggedIn}) {
     <>
     <Header loggedIn={loggedIn}></Header>
     <section className='main'>
-        <SearchForm/>
-        <MoviesCardList></MoviesCardList>
-        <button class='movies__btn'>Еще</button>
+      <SearchForm/>
+      <MoviesCardList></MoviesCardList>
+      <button class='movies__btn'>Еще</button>
     </section>
-        <Footer></Footer>
+    <Footer></Footer>
     </>
   )
 }
-  
+
 export default Movies;

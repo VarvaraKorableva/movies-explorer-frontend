@@ -1,8 +1,6 @@
 .searchform {
   margin-left: 70px;
   margin-right: 70px;
-  /*margin: auto;*/
-  max-width: 1140px;
   padding-top: 70px;
   margin-bottom: 30px;
   max-width: 1140px;
@@ -20,6 +18,15 @@
   .searchform {
     margin-left: 14px;
     margin-right: 14px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .searchform  {
+    margin: auto;
+    padding-top: 70px;
+    margin-bottom: 30px;
+    min-width: 1140px;
   }
 }
 
