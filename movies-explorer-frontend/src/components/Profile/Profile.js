@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import Header from '../Header/Header';
 
-function Profile({loggedIn}) {
-  return ( 
-    
+function Profile({loggedIn, handleSignOut}) {
+  return (
+
     <div className='profile'>
       <Header loggedIn={loggedIn}/>
       <form className='profile__form'>
@@ -22,10 +22,10 @@ function Profile({loggedIn}) {
         <button className='profile__btn'>Редактировать</button>
       </form>
       <div className='profile__wrapper'>
-        <a className='profile__entrylink'>Выйти из аккаунта</a>
+        <button className='profile__entrybtn' onClick={handleSignOut}>Выйти из аккаунта</button>
       </div>
-    </div>  
-  ) 
+    </div>
+  )
 }
 
 export default Profile;

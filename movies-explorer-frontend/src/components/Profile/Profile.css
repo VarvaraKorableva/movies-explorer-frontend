@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
    }*/
-   
+
    .profile__form {
      width: 410px;
      margin: auto;
@@ -15,7 +15,7 @@
     .profile__form  {
       margin-top: 236px;
     }
-  }   
+  }
 
   @media screen and (max-width: 500px) {
     .profile__form  {
@@ -23,20 +23,20 @@
       width: 300px;
     }
   }
-  
+
   @media screen and (max-width: 450px) {
     .profile__form  {
       width: 260px;
     }
   }
-   
+
 .profile__title {
   font-size: 24px;
   font-weight: 500;
   margin: auto;
   margin-bottom: 123px;
 }
-   
+
 @media screen and (max-width: 1000px) {
   .profile__title  {
     margin-bottom: 69px;
@@ -48,10 +48,10 @@
     margin: auto;
     margin-bottom: 63px;
   }
-}   
-   
+}
+
    .profile__fieldset {
-     display: flex;  
+     display: flex;
      flex-direction: column;
      padding: 0;
      border: none;
@@ -68,7 +68,7 @@
 
 .profile__label:first-of-type {
     border-bottom: 1px solid #e8e8e8;
-}  
+}
 
 .profile__label:last-of-type {
   padding-bottom: 0;
@@ -99,13 +99,13 @@
      font-weight: 400;
      text-align: end;
    }
-   
+
    .profile__wrapper {
      display: flex;
      justify-content: center;
    }
 
-   .profile__entrylink {
+   .profile__entrybtn {
     font-weight: 400;
     font-size: 14px;
     color: #EE3465;
@@ -117,13 +117,13 @@
 }
 
 @media screen and (max-width: 500px) {
-  .profile__entrylink {
+  .profile__entrybtn {
     margin-bottom: 40px;
     font-size: 12px;
   }
 }
 
-.profile__entrylink:hover {
+.profile__entrybtn:hover {
   transition: 1s ease;
   color: #631804;
 }
