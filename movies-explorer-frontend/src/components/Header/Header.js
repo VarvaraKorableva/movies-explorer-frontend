@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import './Header.css'
 import headerLogo from '../../images/logo.svg'
 
-function Header({loggedIn}) {
+function Header({loggedIn, isBurgerMenuCliked,}) {
   const [isMobile, setIsMobile] = React.useState(false);
   const location = useLocation();
 
@@ -20,13 +20,15 @@ function Header({loggedIn}) {
     window.addEventListener("resize", handleResize)
   })
 
-  return ( 
+  return (
+
+    location.pathname === '/signup' || location.pathname === '/signin' ? <></> : (
     <header className={`header ${loggedIn && location.pathname === '/'? 'header__nolog' : loggedIn ? 'header__log': 'header__nolog'}`}>
       <Link to="/">
         <img src={headerLogo} alt="Логотип" className='header__logo'/>
       </Link>
       {loggedIn?
-        isMobile?<p className='header__burger'></p>:
+        isMobile?<p className='header__burger' onClick={isBurgerMenuCliked}></p>:
         <div className='header__wrapper'>
           <div className='header__linkwrapper'>
           <Link to="/movies" className='header__linktofilms'>
@@ -34,7 +36,7 @@ function Header({loggedIn}) {
           </Link>
           <Link to="/saved-movies" className='header__linktofilms'>
           <p className='header__link header__link_activ'>Сохраненные фильмы</p>
-          </Link>  
+          </Link>
           </div>
           <div className='header__linktoaccountwrapper'>
             <Link to="/profile" className='header__accountlink'>
@@ -51,12 +53,12 @@ function Header({loggedIn}) {
           <Link to="/signin">
             <button className='header__btn header__btn_activ'>Войти</button>
           </Link>
-          
+
         </div>)
       }
 
-    </header>
-  ) 
+    </header>)
+  )
 }
 
 export default Header;

@@ -1,18 +1,11 @@
 import React from 'react'
 import './Profile.css'
-import registerLogo from '../../images/logo.svg'
-import { Link } from 'react-router-dom';
-import { Route } from 'react-router-dom';
-import Header from '../Header/Header';
 
-function Profile({loggedIn, handleSignOut}) {
+function Profile({handleSignOut}) {
   return (
-
     <div className='profile'>
-      <Header loggedIn={loggedIn}/>
       <form className='profile__form'>
         <h2 className='profile__title'>Привет, Варвара!</h2>
-
         <label className='profile__label'>Имя
         <input className='profile__input' required placeholder='Варвара'></input>
         </label>

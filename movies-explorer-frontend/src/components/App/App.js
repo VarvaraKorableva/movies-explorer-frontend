@@ -2,19 +2,32 @@ import React from 'react'
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 //import {CurrentUserContext} from '../contexts/CurrentUserContext';
 import './App.css'
+import Header from '../Header/Header';
 import Main from '../Main/Main'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
 import Profile from '../Profile/Profile'
-import Movies from '../Movies/Movies';
-import SavedMovies from '../SavedMovies/SavedMovies';
+import Movies from '../Movies/Movies'
+import SavedMovies from '../SavedMovies/SavedMovies'
 import * as mainApi from '../../utils/MainApi'
+import Footer from '../Footer/Footer'
+import Navigation from '../Navigation/Navigation';
 
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(true);
+  const [isBurgerMenuOpen, setIsBurgerMenuOpen] = React.useState(false);
   const navigate = useNavigate();
+
+  function handleBurgerMenuClick() {
+    setIsBurgerMenuOpen(true)
+    console.log('click')
+  }
+
+  function closeAllPopups() {
+    setIsBurgerMenuOpen(false)
+  }
 
   //ф-ция регистрации
   function handleRegSubmit(userData){
@@ -56,8 +69,12 @@ function App() {
 
   return (
   <div className='page'>
+    <Header
+      loggedIn={loggedIn}
+      isBurgerMenuCliked={handleBurgerMenuClick}
+      closeAllPopups={closeAllPopups}
+    />
     <Routes>
-
         <Route path="/" element={<Main loggedIn={loggedIn}/>}>
         </Route>
 
@@ -84,6 +101,10 @@ function App() {
         </Route>
 
     </Routes>
+    <Footer/>
+    <Navigation
+      isOpen={isBurgerMenuOpen}
+      onClose={closeAllPopups} />
   </div>
   );
 }
