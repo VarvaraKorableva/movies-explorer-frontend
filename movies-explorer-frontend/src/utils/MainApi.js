@@ -50,7 +50,57 @@ export const authorize = ( password, email ) => {
   })
       .then(checkResponse)
 };
+
+export const getUserInfo = () => {
+  return fetch(`${BASE_URL}/users/me`, {
+      credentials: 'include',
+      method: 'GET',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+  })
+      .then(checkResponse)
+};
+
+export const changeUserInfo = ( userData ) => {
+  return fetch(`${BASE_URL}/users/me`, {
+      credentials: 'include',
+      method: 'PATCH',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: userData.name,
+        email: userData.email })
+  })
+      .then(checkResponse)
+};
 /*
+ getUserInfo() {
+    return fetch(`${this._url}/users/me`, {
+      credentials: 'include',
+      method:'GET',
+      headers: this._headers
+    })
+    .then(this._checkResponse);
+  }
+
+  setUserInfo(userData) {
+    return fetch(`${this._url}/users/me`, {
+      credentials: 'include',
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: userData.name,
+        about: userData.about
+      })
+    })
+    .then(this._checkResponse);
+  }
+
+
 export const getContent = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
       credentials: 'include',

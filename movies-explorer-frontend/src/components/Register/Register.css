@@ -62,7 +62,7 @@
 }
 
 .register__fieldset {
-  display: flex;  
+  display: flex;
   flex-direction: column;
   padding: 0;
   border: none;
@@ -82,6 +82,7 @@
   font-weight: 400;
   font-size: 10px;
   margin: 0;
+  margin-bottom: 10px;
 }
 
 .register__input {
@@ -91,7 +92,8 @@
   background-color: #f9f9f9;
   border: none;
   border-radius: 8%;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 0px;
   cursor: pointer;
 }
 
@@ -111,7 +113,8 @@
   background-color: #f9f9f9;
   border: none;
   border-radius: 8%;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 0;
   cursor: pointer;
 }
 
@@ -126,7 +129,7 @@
 }
 
 .register__input:last-of-type {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 @media screen and (max-width: 450px) {
@@ -136,11 +139,41 @@
   }
 }
 
+.register__btn_active {
+  background-color: #ff6838;
+  color: #ffffff;
+  width: 100%;
+  height: 45px;
+  border: none;
+  margin-top: 69px;
+  border-radius: 3%;
+  padding: 0;
+  font-weight: 400;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 2s ease;
+  opacity: 1;
+}
+
+@media screen and (max-width: 450px) {
+  .register__btn_active {
+    width: 100%;
+    font-size: 12px;
+    margin-top: 157px;
+  }
+}
+
+.register__btn_active:hover {
+  transition: 2s ease;
+  opacity: 0.5;
+  border: 5px solid #b6286d;
+}
+
 .register__btn {
     color: #ffffff;
     width: 100%;
     height: 45px;
-    background-color: #ff6838;
+    background-color: #ebb2a0;
     border: none;
     margin-top: 69px;
     border-radius: 3%;
@@ -149,13 +182,7 @@
     font-size: 14px;
     cursor: pointer;
     transition: 1s ease;
-    
-}
 
-.register__btn:hover {
-  transition: 1s ease;
-  color: #631804;
-  border: 2px solid #631804;
 }
 
 @media screen and (max-width: 450px) {
@@ -178,7 +205,7 @@
 
 .register__entrylink:hover {
   transition: 1s ease;
-  color: #631804;
+  opacity: 0.5;;
 }
 
 .register__inputmistake {

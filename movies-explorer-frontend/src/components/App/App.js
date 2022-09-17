@@ -1,8 +1,8 @@
 import React from 'react'
-import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
-//import {CurrentUserContext} from '../contexts/CurrentUserContext';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import './App.css'
-import Header from '../Header/Header';
 import Main from '../Main/Main'
 import Register from '../Register/Register'
 import Login from '../Login/Login'
@@ -10,15 +10,18 @@ import Profile from '../Profile/Profile'
 import Movies from '../Movies/Movies'
 import SavedMovies from '../SavedMovies/SavedMovies'
 import * as mainApi from '../../utils/MainApi'
-import Footer from '../Footer/Footer'
 import Navigation from '../Navigation/Navigation';
+import NotFoundPage from '../NotFoundPage/NotFoundPage'
 
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = React.useState(false);
+  const [currentUser, setCurrentUser] = React.useState({});
+
   const navigate = useNavigate();
+  const location = useLocation();
 
   function handleBurgerMenuClick() {
     setIsBurgerMenuOpen(true)
@@ -57,9 +60,10 @@ function App() {
     })
   }
 
-  function handleLogin(password, email){
+  function handleLoginSubmit(password, email){
     mainApi.authorize(password, email)
       .then ((res) => {
+        setLoggedIn(true)
         navigate('/movies')
       .catch((err) => {
         console.log(err)
@@ -67,45 +71,106 @@ function App() {
       })
   }
 
+  React.useEffect(() => {
+    mainApi.getUserInfo()
+    .then((data) => {
+      setCurrentUser(data.user);
+      console.log(currentUser);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  },[location.pathname === '/profile']);
+
+  function handleFindNewMovieSubmit() {
+    console.log("click movie find")
+  }
+
   return (
+  <CurrentUserContext.Provider value={currentUser}>
   <div className='page'>
-    <Header
-      loggedIn={loggedIn}
-      isBurgerMenuCliked={handleBurgerMenuClick}
-      closeAllPopups={closeAllPopups}
+  <Routes>
+    <Route index element={<Main />} />
+
+    <Route
+      path="/"
+      element={
+        <Main
+          loggedIn={loggedIn}
+          isBurgerMenuCliked={handleBurgerMenuClick}/>
+      }>
+    </Route>
+
+    <Route
+      path="/movies"
+      element={
+        <ProtectedRoute loggedIn={loggedIn}>
+          <Movies
+            loggedIn={loggedIn}
+            isBurgerMenuCliked={handleBurgerMenuClick}
+            closeAllPopups={closeAllPopups}
+            handleFindNewMovieSubmit={handleFindNewMovieSubmit}
+          />
+        </ProtectedRoute>
+      }
     />
-    <Routes>
-        <Route path="/" element={<Main loggedIn={loggedIn}/>}>
-        </Route>
 
-        <Route path="/movies" element={<Movies loggedIn={loggedIn}/>}>
-        </Route>
+    <Route
+      path="/saved-movies"
+      element={
+        <ProtectedRoute loggedIn={loggedIn}>
+          <SavedMovies
+            loggedIn={loggedIn}
+            isBurgerMenuCliked={handleBurgerMenuClick}
+            closeAllPopups={closeAllPopups}
+            handleFindNewMovieSubmit={handleFindNewMovieSubmit}
+            />
+        </ProtectedRoute>
+      }>
+    </Route>
 
-        <Route path="/saved-movies" element={<SavedMovies loggedIn={loggedIn}/>}>
-        </Route>
-
-        <Route path="/profile" element={
+    <Route
+      path="/profile"
+      element={
+        <ProtectedRoute loggedIn={loggedIn}>
           <Profile
             loggedIn={loggedIn}
-            handleSignOut={handleSignOut}/>}>
-        </Route>
+            handleSignOut={handleSignOut}
+            closeAllPopups={closeAllPopups}/>
+        </ProtectedRoute>
+      }>
+    </Route>
 
-        <Route path="/signin" element={
-          <Login
-            handleLogin={handleLogin}/>}>
-        </Route>
+    <Route
+      path="/signin"
+      element={
+        <Login
+        handleLoginSubmit={handleLoginSubmit}/>
+      }>
+    </Route>
 
-        <Route path="/signup" element={
-          <Register
-            handleRegSubmit={handleRegSubmit}/>}>
-        </Route>
+    <Route
+      path="/signup"
+      element={
+        <Register
+          handleRegSubmit={handleRegSubmit}/>}>
+    </Route>
 
-    </Routes>
-    <Footer/>
-    <Navigation
-      isOpen={isBurgerMenuOpen}
-      onClose={closeAllPopups} />
+    <Route
+      path="*"
+      element={
+        <NotFoundPage />
+      }>
+    </Route>
+
+  </Routes>
+
+  <Navigation
+    isOpen={isBurgerMenuOpen}
+    onClose={closeAllPopups} />
+
   </div>
+  </CurrentUserContext.Provider>
   );
 }
 
