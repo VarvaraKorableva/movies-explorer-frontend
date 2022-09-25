@@ -13,7 +13,7 @@ function Navigation({isOpen, onClose}) {
                 <Link className='navigation__listlink' to="/">Главная</Link>
             </li>
             <li className='navigation__list' onClick={onClose}>
-                <Link className='navigation__listlink navigation__listlink_active' to="/movies">Фильмы</Link>
+                <Link className='navigation__listlink' to="/movies">Фильмы</Link>
             </li>
             <li className='navigation__list' onClick={onClose}>
                 <Link className='navigation__listlink' to="/saved-movies">Сохранённые фильмы</Link>

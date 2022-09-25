@@ -3,18 +3,19 @@ import './SearchForm.css'
 import FilterCheckbox from './FilterCheckbox/FilterCheckbox'
 import { useForm } from "react-hook-form"
 
-function SearchForm({ handleFindNewMovieSubmit }) {
+function MainApiSearchForm({ handleFindSavedMovieSubmit }) {
   const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({mode: "onBlur"});
 
-  const onSubmitMovie = data => {
-    handleFindNewMovieSubmit();
+  const onSubmitSavedMovie = data => {
+    console.log('work')
+    handleFindSavedMovieSubmit();
     reset();
   };
 
   return (
     <>
     <div className='searchform'>
-      <form className='searchform__inside' onSubmit={handleSubmit(onSubmitMovie)}>
+      <form className='searchform__inside' onSubmit={handleSubmit(onSubmitSavedMovie)}>
         <div className='searchform__loop'></div>
         <fieldset className='searchform__fieldset'>
           <input className='searchform__input'
@@ -42,4 +43,4 @@ function SearchForm({ handleFindNewMovieSubmit }) {
     )
   }
 
-  export default SearchForm;
+  export default MainApiSearchForm;

@@ -1,23 +1,25 @@
 import React from 'react'
-import SearchForm from '../Movies/SearchForm/SearchForm'
+import MainApiSearchForm from '../Movies/SearchForm/MainApiSearchForm';
 import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList'
-import Header from '../Header/Header'
-import Footer from '../Footer/Footer'
+import * as MainApi from '../../utils/MainApi'
 
-function SavedMovies({loggedIn, isBurgerMenuCliked, handleFindNewMovieSubmit}) {
+function SavedMovies({ handleFindSavedMovieSubmit, savedMovies }) {
+
   return (
-    <>
-    <Header loggedIn={loggedIn} isBurgerMenuCliked={isBurgerMenuCliked}></Header>
-      <div>
-        <SearchForm
-        handleFindNewMovieSubmit={handleFindNewMovieSubmit}
-        />
-        <MoviesCardList></MoviesCardList>
-      </div>
-    <Footer/>
-    </>
+    <section>
+      <MainApiSearchForm
+          handleFindSavedMovieSubmit={handleFindSavedMovieSubmit}
+      />
+      <MoviesCardList
+          savedMovies={savedMovies}
+      />
+    </section>
   )
 }
 
 export default SavedMovies;
 
+/*      <MoviesCardList
+savedMovies={savedMovies}
+/>
+*/

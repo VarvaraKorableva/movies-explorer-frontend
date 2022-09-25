@@ -1,4 +1,5 @@
-export const BASE_URL = '//api.moviesapp.nomoredomains.sbs';
+export const BASE_URL = 'http://localhost:3001';
+//'//api.moviesapp.nomoredomains.sbs';
 
   function checkResponse(res) {
     if (res.ok) {
@@ -29,7 +30,7 @@ export const register = ( {password, email, name} ) => {
 export const signOut = () => {
   return fetch(`${BASE_URL}/signout`, {
       credentials: 'include',
-      method: "GET",
+      method: "POST",
       headers: {
           "Accept": "application/json",
           "Content-Type": "application/json",
@@ -38,7 +39,7 @@ export const signOut = () => {
       .then(checkResponse)
 };
 
-export const authorize = ( password, email ) => {
+export const authorize = ( {password, email} ) => {
   return fetch(`${BASE_URL}/signin`, {
       credentials: 'include',
       method: 'POST',
@@ -46,7 +47,10 @@ export const authorize = ( password, email ) => {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ password, email })
+      body: JSON.stringify({
+        password: password,
+        email: email
+      })
   })
       .then(checkResponse)
 };
@@ -78,27 +82,72 @@ export const changeUserInfo = ( userData ) => {
       .then(checkResponse)
 };
 /*
- getUserInfo() {
-    return fetch(`${this._url}/users/me`, {
-      credentials: 'include',
-      method:'GET',
-      headers: this._headers
+export function saveMovies({
+  country, director, duration, year, description, image, trailerLink, thumbnail, owner, movieId, nameRU, nameEN
+}) {
+  return fetch(`${BASE_URL}/movies`, {
+    credentials: 'include',
+    method: "POST",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      country: country,
+      director: director,
+      duration: duration,
+      year: year,
+      description: description,
+      image: image,
+      trailerLink: trailerLink,
+      thumbnail:thumbnail,
+      owner: owner,
+      movieId: movieId,
+      nameRU: nameRU,
+      nameEN:nameEN
     })
-    .then(this._checkResponse);
-  }
+  }).then(checkResponse);
+}*/
 
-  setUserInfo(userData) {
-    return fetch(`${this._url}/users/me`, {
+export function saveMovies(data) {
+  return fetch(`${BASE_URL}/movies`, {
+    credentials: 'include',
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+    .then(checkResponse)
+}
+
+export const deleteMovies = (movieId) => {
+  return fetch(`${BASE_URL}/movies/${movieId}`, {
+    credentials: 'include',
+    method: 'DELETE',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(checkResponse)
+}
+
+export const getSavedMovies = () => {
+  return fetch(`${BASE_URL}/movies`, {
       credentials: 'include',
-      method: 'PATCH',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: userData.name,
-        about: userData.about
-      })
-    })
-    .then(this._checkResponse);
-  }
+      method: 'GET',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+  })
+      .then(checkResponse)
+};
+
+/*
+
 
 
 export const getContent = (token) => {

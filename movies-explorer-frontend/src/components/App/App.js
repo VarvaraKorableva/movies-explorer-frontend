@@ -9,16 +9,21 @@ import Login from '../Login/Login'
 import Profile from '../Profile/Profile'
 import Movies from '../Movies/Movies'
 import SavedMovies from '../SavedMovies/SavedMovies'
-import * as mainApi from '../../utils/MainApi'
+import * as MainApi from '../../utils/MainApi'
+//import * as mainApi from '../../utils/MainApi'
 import Navigation from '../Navigation/Navigation';
 import NotFoundPage from '../NotFoundPage/NotFoundPage'
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(true);
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = React.useState(false);
+  const [savedMovies, setSavedMovies] = React.useState([]);
   const [currentUser, setCurrentUser] = React.useState({});
+
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,7 +39,7 @@ function App() {
 
   //ф-ция регистрации
   function handleRegSubmit(userData){
-    mainApi.register({
+    MainApi.register({
       password:userData.password,
       email:userData.email,
       name:userData.name,
@@ -50,7 +55,7 @@ function App() {
 
   //ф-ция выхода из приложения(стерка токена из куки)
   function handleSignOut(){
-    mainApi.signOut()
+    MainApi.signOut()
     .then((res) => {
       setLoggedIn(false)
       navigate('/');
@@ -60,8 +65,11 @@ function App() {
     })
   }
 
-  function handleLoginSubmit(password, email){
-    mainApi.authorize(password, email)
+  function handleLoginSubmit(userData){
+    MainApi.authorize({
+      password:userData.password,
+      email:userData.email,
+    })
       .then ((res) => {
         setLoggedIn(true)
         navigate('/movies')
@@ -72,7 +80,7 @@ function App() {
   }
 
   React.useEffect(() => {
-    mainApi.getUserInfo()
+    MainApi.getUserInfo()
     .then((data) => {
       setCurrentUser(data.user);
       console.log(currentUser);
@@ -80,15 +88,79 @@ function App() {
     .catch((err) => {
       console.log(err);
     });
-  },[location.pathname === '/profile']);
+  },[])
 
-  function handleFindNewMovieSubmit() {
-    console.log("click movie find")
+  React.useEffect(() => {
+    MainApi.getSavedMovies()
+    .then((data) => {
+      setSavedMovies(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  },[])
+
+  function handleFindSavedMovieSubmit() {
+    MainApi.getSavedMovies()
+      .then((data) => {
+        setSavedMovies(data);
+      })
+    .catch((err) => {
+      console.log(err);
+    });
   }
+
+  function changeUserInfoSubmit(userData) {
+    MainApi.changeUserInfo(userData)
+      .then((data) => {
+        setCurrentUser({
+          ...currentUser,
+          name: data.name,
+          email: data.email
+        });
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+/**
+const handleSaveMovie = (movie) => {
+    const newMovie = {
+      country: movie.country || 'unknown',
+      director: movie.director || 'unknown',
+      duration: movie.duration,
+      year: movie.year || 'no data',
+      description: movie.description || 'no data',
+      image: movie.image,
+      trailerLink: movie.trailerLink,
+      thumbnail: movie.thumbnail,
+      movieId: movie.id,
+      nameRU: movie.nameRU || 'no name',
+      nameEN: movie.nameEN || 'no name',
+    }
+
+    MainApi
+      .saveMovie(newMovie)
+      .then((newMovie) => {
+        setSavedMovies([newMovie, ...savedMovies])
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .finally(() => {
+
+      })
+  }
+ */
+
 
   return (
   <CurrentUserContext.Provider value={currentUser}>
   <div className='page'>
+    <Header
+      loggedIn={loggedIn}
+      isBurgerMenuCliked={handleBurgerMenuClick}>
+    </Header>
   <Routes>
     <Route index element={<Main />} />
 
@@ -107,9 +179,7 @@ function App() {
         <ProtectedRoute loggedIn={loggedIn}>
           <Movies
             loggedIn={loggedIn}
-            isBurgerMenuCliked={handleBurgerMenuClick}
-            closeAllPopups={closeAllPopups}
-            handleFindNewMovieSubmit={handleFindNewMovieSubmit}
+            savedMovies={savedMovies}
           />
         </ProtectedRoute>
       }
@@ -121,9 +191,8 @@ function App() {
         <ProtectedRoute loggedIn={loggedIn}>
           <SavedMovies
             loggedIn={loggedIn}
-            isBurgerMenuCliked={handleBurgerMenuClick}
-            closeAllPopups={closeAllPopups}
-            handleFindNewMovieSubmit={handleFindNewMovieSubmit}
+            savedMovies={savedMovies}
+            handleFindSavedMovieSubmit={handleFindSavedMovieSubmit}
             />
         </ProtectedRoute>
       }>
@@ -134,9 +203,9 @@ function App() {
       element={
         <ProtectedRoute loggedIn={loggedIn}>
           <Profile
-            loggedIn={loggedIn}
             handleSignOut={handleSignOut}
-            closeAllPopups={closeAllPopups}/>
+            isBurgerMenuCliked={handleBurgerMenuClick}
+            changeUserInfoSubmit={changeUserInfoSubmit}/>
         </ProtectedRoute>
       }>
     </Route>
@@ -166,9 +235,10 @@ function App() {
   </Routes>
 
   <Navigation
+    isBurgerMenuCliked={handleBurgerMenuClick}
     isOpen={isBurgerMenuOpen}
     onClose={closeAllPopups} />
-
+  <Footer/>
   </div>
   </CurrentUserContext.Provider>
   );

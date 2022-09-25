@@ -31,8 +31,8 @@ function Register({handleRegSubmit}){
                  defaultValue=""
                  {...register("name", {
                    required: "Поле обязательно для заполнения",
-                   minLength: { value: 5, message: "Имя должно содержать минимум 5 знаков, пожалуйста, исправьте" },
-                   maxLength: { value: 10, message: "Имя не может превышать 10 символов, пожалуйста, исправьте" },
+                   minLength: { value: 2, message: "Имя должно содержать минимум 2 знаков, пожалуйста, исправьте" },
+                   maxLength: { value: 30, message: "Имя не может превышать 30 символов, пожалуйста, исправьте" },
                    pattern: /[а-яА-Яa-zA-ZёË\- ]{1,}/,
                  })}
             />

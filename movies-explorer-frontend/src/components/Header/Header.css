@@ -28,7 +28,8 @@
 }
 
 .header__nolog {
-  background-color: #465DFF;
+  /*background-color: #465DFF;*/
+  background-color: #f3c1f8;
   justify-content: space-between;
   display: flex;
 }
@@ -127,13 +128,14 @@
 
 .header__btn {
   cursor: pointer;
-  color: #ffffff;
+  color: black;
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 8px;
   padding-bottom: 8px;
   border: none;
-  background-color: #465DFF;
+  /*background-color: #465DFF;*/
+  background-color: transparent;
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
@@ -144,7 +146,7 @@
 
 .header__btn:hover {
   transition: 0.3s ease;
-  color: black;
+  color: #ffffff;
   background-color: #2BE080;
   border-radius: 3%;
   font-size: 12px;

@@ -1,13 +1,12 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom'
 import './Header.css'
 import headerLogo from '../../images/logo.svg'
 
 function Header({loggedIn, isBurgerMenuCliked}) {
   const [isMobile, setIsMobile] = React.useState(false);
   const location = useLocation();
-
-
+  
   const handleResize = () => {
     if (window.innerWidth < 1000) {
       setIsMobile(true)
@@ -22,7 +21,7 @@ function Header({loggedIn, isBurgerMenuCliked}) {
 
   return (
 
-    location.pathname === '/signup' || location.pathname === '/signin'? <></> : (
+    location.pathname === '/signup' || location.pathname === '/signin' ? <></> : (
     <header className={`header ${loggedIn && location.pathname === '/'? 'header__nolog' : loggedIn ? 'header__log': 'header__nolog'}`}>
       <Link to="/">
         <img src={headerLogo} alt="Логотип" className='header__logo'/>
@@ -51,7 +50,7 @@ function Header({loggedIn, isBurgerMenuCliked}) {
             <button className='header__btn'>Регистрация</button>
           </Link>
           <Link to="/signin">
-            <button className='header__btn header__btn_activ'>Войти</button>
+            <button className='header__btn'>Войти</button>
           </Link>
 
         </div>)

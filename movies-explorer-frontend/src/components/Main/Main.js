@@ -10,8 +10,6 @@ import Footer from '../Footer/Footer'
 
 function Main({loggedIn, isBurgerMenuCliked}) {
   return (
-    <>
-     <Header loggedIn={loggedIn} isBurgerMenuCliked={isBurgerMenuCliked}></Header>
       <main className='main'>
         <Promo/>
         <AboutProject/>
@@ -19,9 +17,9 @@ function Main({loggedIn, isBurgerMenuCliked}) {
         <AboutMe></AboutMe>
         <Portfolio></Portfolio>
       </main>
-    <Footer/>
-    </>
   )
 }
 
 export default Main;
+//<Header loggedIn={loggedIn} isBurgerMenuCliked={isBurgerMenuCliked}></Header>
+//<Footer/>
