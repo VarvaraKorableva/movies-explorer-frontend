@@ -4,7 +4,7 @@ import registerLogo from '../../images/logo.svg'
 import { Link } from 'react-router-dom'
 import { useForm } from "react-hook-form"
 
-function Login({handleLoginSubmit}) {
+function Login({handleLoginSubmit, logError, errorMessage}) {
 
   const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({mode: "onBlur"});
   const onSubmit = data => {
@@ -28,7 +28,7 @@ function Login({handleLoginSubmit}) {
             <input className='login__input'
                  pattern="^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$"
                  type="email"
-                 autocomplete="on"
+                 autoComplete="on"
                  defaultValue=""
                  {...register("email", {
                    required: "Поле обязательно для заполнения",
@@ -47,7 +47,7 @@ function Login({handleLoginSubmit}) {
                  maxLength="8"
                  name="password"
                  type="password"
-                 autocomplete="on"
+                 autoComplete="on"
                  defaultValue=""
                  {...register("password", {
                    required: "Поле обязательно для заполнения",
@@ -60,6 +60,9 @@ function Login({handleLoginSubmit}) {
           {errors?.password && <p className='login__inputmistake'>{errors?.password?.message || 'Error'}</p>}
           </span>
         </fieldset>
+        {logError?
+        <p className='error-message'>{errorMessage}</p>
+      : <></>}
         <button className={`'login__btn' ${isValid? 'login__btn_active': 'login__btn'}`} type='submit' disabled={!isValid}>Войти</button>
           <div className='login__wrapper'>
             <p className='login__subtitle'>Еще не зарегистрированы?

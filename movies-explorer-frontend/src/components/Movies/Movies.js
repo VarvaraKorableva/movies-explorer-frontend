@@ -1,78 +1,122 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import SearchForm from './SearchForm/SearchForm'
 import MoviesCardList from './MoviesCardList/MoviesCardList'
 import './Movies.css'
 import * as MoviesApi from '../../utils/MoviesApi'
-import * as MainApi from '../../utils/MainApi'
+import Preloader from '../Preloader/Preloader'
+
+function Movies({ limit, addMovies, onDelete, onSave, savedMovies  }) {
+
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [keyWord, setKeyWord] = React.useState('')
+  const [checkboxStatus, setCheckboxStatus] = React.useState(false)
+  const [searchMessage, setSearchMessage] = React.useState('')
+  const [isSearchComplited, setIsSearchComplited] = React.useState(false)
+  const [toRenderMovies, setToRenderMovies] = React.useState([])
+  const [isError, setIsError] = React.useState(false)
+
+  const isEpmty = toRenderMovies.length === 0
+  const isDisappear = toRenderMovies.length <= limit
 
 
-function Movies({ isSaveBtnCliked, handleSaveMovie }) {
 
-  const [beatfilmMovies, setBeatfilmMovies] = useState({})
-  const [savedMovies, setSavedMovies] = React.useState([]);
-
-
-/*
-  useEffect(() => {
+  function handleFindNewMovieSubmit(keyWord, checkBoxStatus) {
+    setIsSearchComplited(true)
+    setIsLoading(true)
+    setKeyWord(keyWord)
+    setCheckboxStatus(checkBoxStatus)
+    localStorage.setItem('keyWord', keyWord)
+    localStorage.setItem('checkBoxStatus', checkBoxStatus)
     MoviesApi.getMovies()
     .then((data) => {
-      localStorage.setItem('data', JSON.stringify(data))
-      //const movies = localStorage.getItem('data')
-      //setBeatfilmMovies(movies)
-      setBeatfilmMovies(data)
+      setIsLoading(false)
+      //setToRenderMovies(data)
+      const moviesAfterFilter = filterItems(data, keyWord)
+     // localStorage.setItem('moviesAfterFilter', JSON.stringify(data))/**/
+      localStorage.setItem('moviesAfterFilter', JSON.stringify(moviesAfterFilter))
+      const moviesAfterFindShortMovies = handleFindShortMovies(moviesAfterFilter)
+      localStorage.setItem('moviesAfterFindShortMovies', JSON.stringify(moviesAfterFindShortMovies))
+      checkboxStatus?
+        setToRenderMovies(moviesAfterFindShortMovies)
+      :
+        setToRenderMovies(moviesAfterFilter)
     })
     .catch((err) => {
+      setIsError(true)
+      setSearchMessage(
+        'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.'
+      )
       console.log(err);
-    });
-  },[])
-*/
+    })
+    .finally(() => {
+      setIsLoading(false)
+    })
+  }
 
-  function handleFindNewMovieSubmit() {
-    MoviesApi.getMovies()
-    .then((data) => {
-      localStorage.setItem('data', JSON.stringify(data))
-      //const movies = localStorage.getItem('data')
-      //setBeatfilmMovies(movies)
-      setBeatfilmMovies(data)
+  function filterItems(movies, keyWord) {
+    const queryMovies = Array.isArray(movies) ?
+    movies.filter((item) => {
+      return (
+        item.nameRU.toLowerCase().indexOf(keyWord.toLowerCase()) > -1
+      )
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    : []
+    return queryMovies
+  }
+
+  function handleFindShortMovies(movies) {
+    return movies.filter((item) => item.duration < 40)
   }
 
 
-/*
-  function handleFindNewMovieSubmit() {
-    MoviesApi.getMovies()
-    .then((data) => {
-      //const movies = localStorage.getItem(data);
-      localStorage.setItem('data', JSON.stringify(data))
-      //const movies = localStorage.getItem('data')
-      //setBeatfilmMovies(data)
-      setBeatfilmMovies(data)
-      //console.log(movies)
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }*/
+React.useEffect(() => {
+  const moviesAfterFilter = JSON.parse(localStorage.getItem('moviesAfterFilter'))
+  const moviesAfterFindShortMovies = JSON.parse(localStorage.getItem('moviesAfterFindShortMovies'))
+
+  const checkBoxStatus = localStorage.getItem('checkBoxStatus')
+
+  checkBoxStatus?
+    setToRenderMovies(moviesAfterFindShortMovies)
+  :
+    setToRenderMovies(moviesAfterFilter)
+
+
+}, [checkboxStatus, keyWord])
 
   return (
-    <section className='main'>
-
+    <>
+      {isLoading?
+      <Preloader/>
+      :
+      <section className='main'>
       <SearchForm
         handleFindNewMovieSubmit={handleFindNewMovieSubmit}
+        keyWord={keyWord}
       />
+      {isError?
+      <span className='movies__error'>{searchMessage}</span>:
+      isEpmty && isSearchComplited?
+      <span className='movies__error'>К сожалению, по вашему запросу фильмов не найдено, попробуйте изменить запрос.</span>
+      :
       <MoviesCardList
-        beatfilmMovies={beatfilmMovies}
+        limit={limit}
+        checkboxStatus={checkboxStatus}
+        beatfilmMovies={toRenderMovies}
         savedMovies={savedMovies}
+        keyWord={keyWord}
+        onDelete={onDelete}
+        onSave={onSave}
       />
-      <button className='movies__btn'>Еще</button>
-    </section>
+      }
+      {isDisappear?
+      <></>
+      :
+      <button className='movies__btn' onClick={addMovies}>Еще</button>
+      }
+      </section>
+      }
+    </>
   )
 }
 
 export default Movies;
-
-
-

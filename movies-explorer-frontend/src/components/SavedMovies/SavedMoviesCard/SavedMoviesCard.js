@@ -1,57 +1,32 @@
 import React from 'react'
-//import './MoviesCard.css'
 import '../../Movies/MoviesCard/MoviesCard.css'
-import * as MainApi from '../../../utils/MainApi'
 
-function MoviesCard({ savedMovie }) {
+function SavedMoviesCard({ savedMovie, handleCardDelete }) {
 
-  const [isSaveBtnCliked,setIsSaveBtnCliked] = React.useState(false);
-
-  console.log(savedMovie);
-
-/*
-onClick={handleDelete}
-
-  const handleCardDelete = (movie) => {
-
-    MainApi.deleteMovies(movie._id)
-      .then(() => {
-        setIsSaveBtnCliked(false)
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-/*
   function handleDelete() {
-    console.log(movie)
-    if (isSaved) {
-      handleCardDelete(savedMovies.filter((m) => m.movieId === movie.id)[0])
-    }
-    setIsSaveBtnCliked(false)
+    handleCardDelete(savedMovie)
   }
-*/
-
-function getTimeFromMins(mins) {
-  let hours = Math.trunc(mins/60);
-let minutes = mins % 60;
-return hours + 'ч ' + minutes + 'м';
-};
+  
+  function getTimeFromMins(mins) {
+    let hours = Math.trunc(mins/60);
+    let minutes = mins % 60;
+    if ( hours === 0 && minutes <= 40) {
+      return minutes + 'м';
+    } else {
+      return hours + 'ч ' + minutes + 'м';
+    }
+  };
 
   return (
-<div className='moviescard'>
+    <div className='moviescard'>
       <div className='moviescard__imgcontainer'>
+      <a href={savedMovie.trailerLink} target="_blank">
         <img className='moviescard__img'
         src={savedMovie.image}
         alt={savedMovie.nameRU}
         />
-        {isSaveBtnCliked?
-        <button className='moviescard__savebtn_active'></button>
-        :
-        (<button className='moviescard__savebtn'></button>)
-        }
-
+      </a>
+      <button className='moviescard__savebtn_active' onClick={handleDelete}></button>
       </div>
       <div className='moviescard__nameandtimecontainer'>
         <p className='moviescard__name'>{savedMovie.nameRU}</p>
@@ -61,9 +36,4 @@ return hours + 'ч ' + minutes + 'м';
   )
 }
 
-export default MoviesCard;
-//<p className='moviescard__time'>{movie.duration}</p>
-//onClick={handleSaveMovie}
-
-//<button {`${isSaveBtnCliked? className='moviescard__savebtn_active' : className='moviescard__savebtn'`} onClick={handleSave}}>
-//</button>
+export default SavedMoviesCard;

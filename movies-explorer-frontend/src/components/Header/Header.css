@@ -28,8 +28,8 @@
 }
 
 .header__nolog {
-  /*background-color: #465DFF;*/
-  background-color: #f3c1f8;
+  background-color: #465DFF;
+  /*background-color: #f3c1f8;*/
   justify-content: space-between;
   display: flex;
 }
@@ -52,10 +52,18 @@
 }
 
 .header__link_activ {
-  font-weight: 500;
+  color: #000;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 18px;
+  font-size: 13px;
+  font-weight: 400;
+  opacity: 1;
 }
 
 .header__link {
+  opacity: 0.6;
+  color: #000;
   margin: 0;
   margin-right: 16px;
   line-height: 18px;

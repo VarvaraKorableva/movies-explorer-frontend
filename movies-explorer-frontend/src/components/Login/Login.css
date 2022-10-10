@@ -214,7 +214,6 @@
 .login__btn_active:hover {
   transition: 2s ease;
   opacity: 0.5;
-  border: 5px solid #b6286d;
 }
 
 .login__btn {

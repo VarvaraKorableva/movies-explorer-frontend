@@ -5,31 +5,47 @@ import SavedMoviesCard from "../../SavedMovies/SavedMoviesCard/SavedMoviesCard"
 
   import { useLocation } from 'react-router-dom'
 
-function MoviesCardList({beatfilmMovies, isSaveBtnCliked, handleSaveMovie, savedMovies}) {
+function MoviesCardList({ savedMovies, onSave, limit, checkboxStatus, beatfilmMovies, isSaveBtnCliked, handleSaveMovie, toRenderMovies, keyWord, handleCardDelete, onDelete}) {
 
   const location = useLocation();
-  //const beatfilmMovies = localStorage.getItem('data')
 
   return (
-    location.pathname === '/movies' ?
-    <section class='moviescardlist'>
-      {beatfilmMovies.length > 0 && beatfilmMovies.map((item)=> (
+    location.pathname === '/movies'?
+
+    <section className='moviescardlist'>
+      {beatfilmMovies.length > 0 && beatfilmMovies.slice(0, limit).map((item)=> (
         <MoviesCard
           key={item.id || item.movieId}
           movie={item}
           isSaveBtnCliked={isSaveBtnCliked}
           handleSaveMovie={handleSaveMovie}
           savedMovies={savedMovies}
+          checkboxStatus={checkboxStatus}
+          onDelete={onDelete}
+          onSave={onSave}
           />
       ))}
     </section>
     :
-    (
-      <section class='saved-movies'>
+    (keyWord?
+    <section className='moviescardlist'>
+      {toRenderMovies.length > 0 && toRenderMovies.map((item)=> (
+        <SavedMoviesCard
+          savedMovie={item}
+          key={item._id || item.movieId}
+          checkboxStatus={checkboxStatus}
+          handleCardDelete={handleCardDelete}
+          />
+      ))}
+    </section>
+      :
+    <section className='moviescardlist'>
       {savedMovies.length > 0 && savedMovies.map((item)=> (
         <SavedMoviesCard
           savedMovie={item}
-          key={item.id || item.movieId}
+          key={item._id || item.movieId}
+          checkboxStatus={checkboxStatus}
+          handleCardDelete={handleCardDelete}
           />
       ))}
     </section>
@@ -38,22 +54,3 @@ function MoviesCardList({beatfilmMovies, isSaveBtnCliked, handleSaveMovie, saved
 }
 
   export default MoviesCardList;
-
-  /*
-beatfilmMovies.length > 0 &&
-<section className="cards">
-      {cards.length > 0 && cards.map((card)=> (
-        <Card
-          key={card._id}
-          card={card}
-          onCardClick={onCardClick}
-          onCardLike={onCardLike}
-          onTrashButton={onTrashButton}/>
-      ))}
-    </section>
-
-
-
-  В стейт записать кол-во карточек в зависимости от ширины экрана, а в функции хэндлере обновлять
-  стейт в зависимости от window.innerWidth и слушатель на resize повесить
-  */

@@ -136,7 +136,7 @@
 
 .profile__entrybtn:hover {
   transition: 1s ease;
-  color: #631804;
+  opacity: 0.5;
 }
 
 .profile__btn {

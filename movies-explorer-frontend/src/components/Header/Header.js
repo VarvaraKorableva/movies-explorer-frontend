@@ -6,7 +6,7 @@ import headerLogo from '../../images/logo.svg'
 function Header({loggedIn, isBurgerMenuCliked}) {
   const [isMobile, setIsMobile] = React.useState(false);
   const location = useLocation();
-  
+
   const handleResize = () => {
     if (window.innerWidth < 1000) {
       setIsMobile(true)
@@ -31,10 +31,10 @@ function Header({loggedIn, isBurgerMenuCliked}) {
         <div className='header__wrapper'>
           <div className='header__linkwrapper'>
           <Link to="/movies" className='header__linktofilms'>
-            <p className='header__link'>Фильмы</p>
+            <p className={`'header__link' ${location.pathname === '/movies'? 'header__link_activ': 'header__link'}`}>Фильмы</p>
           </Link>
           <Link to="/saved-movies" className='header__linktofilms'>
-          <p className='header__link header__link_activ'>Сохраненные фильмы</p>
+          <p className={`'header__link' ${location.pathname === '/saved-movies'? 'header__link_activ': 'header__link'}`}>Сохраненные фильмы</p>
           </Link>
           </div>
           <div className='header__linktoaccountwrapper'>
@@ -61,5 +61,3 @@ function Header({loggedIn, isBurgerMenuCliked}) {
 }
 
 export default Header;
-
-//В стейт записать кол-во карточек в зависимости от ширины экрана, а в функции хэндлере обновлять стейт в зависимости от window.innerWidth и слушатель на resize повесить

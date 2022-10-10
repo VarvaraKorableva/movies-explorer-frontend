@@ -40,6 +40,8 @@
   border: none;
   display: flex;
   flex-direction: column;
+  padding: 0;
+  width: 100%;
 }
 
 .searchform__loop {
@@ -47,9 +49,10 @@
   border: 1px solid #E8E8E8;
   background-image: url(../../../images/loop.svg);
   background-repeat: no-repeat;
-  width: 34px;
-  height: 34px;
+  min-width: 34px;
+  min-height: 34px;
   margin-bottom: 15px;
+  margin-right: 15px;
 }
 
 @media screen and (max-width: 500px) {
@@ -61,6 +64,7 @@
 .searchform__input {
   border: none;
   cursor: pointer;
+  min-height: 40px;
 }
 
 .searchform__input::placeholder {
@@ -88,6 +92,7 @@
   border: none;
   cursor: pointer;
   margin-bottom: 15px;
+  margin-left: 20px;
   opacity: 1;
   transition: 0.3s ease;
 }
@@ -108,6 +113,7 @@
   border: none;
   cursor: pointer;
   margin-bottom: 15px;
+  margin-left: 20px;
   opacity: 1;
   transition: 0.3s ease;
 }
@@ -116,4 +122,6 @@
   color: #EE3465;
   font-weight: 400;
   font-size: 10px;
+  margin: auto;
+  margin-top: 5px;
 }

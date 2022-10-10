@@ -1,46 +1,12 @@
 import React from 'react'
 import './Profile.css'
-import * as mainApi from '../../utils/MainApi'
 import {CurrentUserContext} from '../../contexts/CurrentUserContext'
 import { useForm } from "react-hook-form"
 
 
-/**
- *
-Нужна ф-ция отправки исправленных данных в бд
-доделать валидацию (сообщения об ошибке+ обработка ошибки по паттерну)
- */
-
-
-function Profile({ handleSignOut, changeUserInfoSubmit }) {
+function Profile({ handleSignOut, changeUserInfoSubmit, error, errorMessage }) {
 
   const currentUser = React.useContext(CurrentUserContext);
-  //const [currentUser, setCurrentUser] = React.useState({});
-/*
-  React.useEffect(() => {
-    mainApi.getUserInfo()
-    .then((data) => {
-      setCurrentUser(data.user);
-      console.log(currentUser);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  },[])
-
-  function changeUserInfoSubmit(userData) {
-    mainApi.changeUserInfo(userData)
-      .then((data) => {
-        setCurrentUser({
-          ...currentUser,
-          name: data.name,
-          email: data.email
-        });
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }*/
 
   const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({mode: "onBlur"});
 
@@ -83,9 +49,11 @@ function Profile({ handleSignOut, changeUserInfoSubmit }) {
           />
         </label>
         <span className='profile__inputmistake'>
-          {errors?.email && <p className='profile__inputmistake'>{errors?.email?.message || 'Error'}</p>}
+          {errors?.email && <p className='profile__inputmistake'>{errors?.email?.message || 'Неправльный формат электронной почты'}</p>}
         </span>
-
+        {error?
+        <p className='error-message'>{errorMessage}</p>
+      : <></>}
         <button className={`'profile__btn' ${isValid? 'profile__btn_active': 'profile__btn'}`}
                 type='submit'
                 disabled={!isValid}

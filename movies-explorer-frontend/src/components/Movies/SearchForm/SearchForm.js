@@ -1,45 +1,67 @@
 import React from "react"
 import './SearchForm.css'
-import FilterCheckbox from './FilterCheckbox/FilterCheckbox'
-import { useForm } from "react-hook-form"
+import './FilterCheckbox/FilterCheckbox.css'
 
 function SearchForm({ handleFindNewMovieSubmit }) {
-  const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({mode: "onBlur"});
 
-  const onSubmitMovie = data => {
-    handleFindNewMovieSubmit();
-    reset();
+  const [keyWord, setKeyWord] = React.useState('')
+  const [error, setError] = React.useState(false)
+  const [checkBoxStatus, setCheckBoxStatus] = React.useState(false)
+
+  React.useEffect(() => {
+    const query = localStorage.getItem('keyWord')
+    setKeyWord(query)
+  },[])
+
+  const onSubmitMovie = (e) => {
+    e.preventDefault()
+    if (!keyWord) {
+      setError(true)
+    }else{
+      setError(false)
+      handleFindNewMovieSubmit(keyWord, checkBoxStatus);
+    }
   };
+
+  const handleCheckBoxChange = (e) => {
+    setCheckBoxStatus(e.target.checked)
+  }
+  const handleSearchInputChange = (e) => {
+    setKeyWord(e.target.value)
+    setError(false)
+  }
 
   return (
     <>
     <div className='searchform'>
-      <form className='searchform__inside' onSubmit={handleSubmit(onSubmitMovie)}>
-        <div className='searchform__loop'></div>
+      <form className='searchform__inside' onSubmit={onSubmitMovie}>
+      <div className='searchform__loop'></div>
         <fieldset className='searchform__fieldset'>
           <input className='searchform__input'
                  type='text'
                  placeholder="Фильм"
-
-                 {...register("movie", {
-                   required: "Нужно ввести ключевое слово",
-                   minLength: { value: 1, message: "Должен быть введен минимум 1 символ" },
-                   maxLength: { value: 30, message: "Название не может превышать 30 символов, пожалуйста, исправьте" },
-                   pattern: /[а-яА-Яa-zA-ZёË\- ]{1,}/,
-                 })}
+                 autoComplete="off"
+                 onChange={handleSearchInputChange}
+                 value={keyWord || ''}
             />
           <span className='searchform__inputmistake'>
-            {errors?.movie && <p className='searchform__inputmistake'>{errors?.movie?.message || 'Error'}</p>}
+            {error ? 'Введите ключевое слово': ''}
           </span>
         </fieldset>
-        <button className={`${isValid? 'searchform__button_active': 'searchform__button'}`} type='submit' disabled={!isValid}></button>
+        <button className='searchform__button_active' type='submit'></button>
       </form>
     </div>
-    <FilterCheckbox></FilterCheckbox>
+    <div className='wrapper'>
+      <label className='checkbox'>
+        <input className='checkbox__input' type='checkbox' onChange={handleCheckBoxChange}></input>
+        <div className='checkbox__div'></div>
+      </label>
+      <p className='filtercheckbox'>Короткометражки</p>
+    </div>
+
     </>
-
-
     )
   }
 
   export default SearchForm;
+

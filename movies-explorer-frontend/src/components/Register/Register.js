@@ -4,7 +4,7 @@ import './Register.css'
 import registerLogo from '../../images/logo.svg'
 import { Link } from 'react-router-dom';
 
-function Register({handleRegSubmit}){
+function Register({handleRegSubmit, errorMessage, error}){
   const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({mode: "onBlur"});
   const onSubmit = data => {
     handleRegSubmit({
@@ -27,7 +27,7 @@ function Register({handleRegSubmit}){
             <input className='register__input'
 
                  type="text"
-                 autocomplete="on"
+                 autoComplete="on"
                  defaultValue=""
                  {...register("name", {
                    required: "Поле обязательно для заполнения",
@@ -44,7 +44,7 @@ function Register({handleRegSubmit}){
           <label className='register__inputname'>E-mail
             <input className='register__input'
                  type="email"
-                 autocomplete="on"
+                 autoComplete="on"
                  defaultValue=""
                  {...register("email", {
                    required: "Поле обязательно для заполнения",
@@ -63,7 +63,7 @@ function Register({handleRegSubmit}){
 
                  type="password"
                  maxLength="8"
-                 autocomplete="on"
+                 autoComplete="on"
                  defaultValue=""
                  {...register("password", {
                    required: "Поле обязательно для заполнения",
@@ -76,6 +76,9 @@ function Register({handleRegSubmit}){
               {errors?.password && <p className='register__inputmistake'>{errors?.password?.message || 'Error'}</p>}
           </span>
       </fieldset>
+     {error?
+        <p className='error-message'>{errorMessage}</p>
+      : <></>}
         <button className={`'register__btn' ${isValid? 'register__btn_active': 'register__btn'}`} type='submit' disabled={!isValid}>Зарегистрироваться</button>
         <div className='register__wrapper'>
           <p className='register__subtitle'>Уже зарегистрированы?
