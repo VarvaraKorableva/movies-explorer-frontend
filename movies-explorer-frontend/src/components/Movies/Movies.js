@@ -30,9 +30,7 @@ function Movies({ limit, addMovies, onDelete, onSave, savedMovies  }) {
     MoviesApi.getMovies()
     .then((data) => {
       setIsLoading(false)
-      //setToRenderMovies(data)
       const moviesAfterFilter = filterItems(data, keyWord)
-     // localStorage.setItem('moviesAfterFilter', JSON.stringify(data))/**/
       localStorage.setItem('moviesAfterFilter', JSON.stringify(moviesAfterFilter))
       const moviesAfterFindShortMovies = handleFindShortMovies(moviesAfterFilter)
       localStorage.setItem('moviesAfterFindShortMovies', JSON.stringify(moviesAfterFindShortMovies))
@@ -102,7 +100,7 @@ React.useEffect(() => {
         limit={limit}
         checkboxStatus={checkboxStatus}
         beatfilmMovies={toRenderMovies}
-        savedMovies={savedMovies}
+        //savedMovies={savedMovies}
         keyWord={keyWord}
         onDelete={onDelete}
         onSave={onSave}

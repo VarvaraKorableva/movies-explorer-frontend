@@ -62,7 +62,6 @@ function App() {
     MainApi.getUserInfo()
     .then((data) => {
       setCurrentUser(data.user);
-      console.log(currentUser);
     })
     .catch((err) => {
       console.log(err);
@@ -128,8 +127,7 @@ function App() {
   React.useEffect(() => {
     MainApi.getSavedMovies()
     .then((data) => {
-      //localStorage.setItem('savedData', JSON.stringify(data.data))
-      //const movies = JSON.parse(localStorage.getItem('savedData'))
+      localStorage.setItem('savedData', JSON.stringify(data.data))
       setSavedMovies(data)
     })
     .catch((err) => {
@@ -185,26 +183,9 @@ function App() {
         }
       })
   }
-/*
-  const handleDeleteMovie = (movie) => {
-    MainApi.deleteMovies(movie._id)
-    MainApi.getSavedMovies()
-      //.then((data) => {
-        //localStorage.setItem('savedData', JSON.stringify(data.data))
-        //const movies = JSON.parse(localStorage.getItem('savedData'))})
-      .then(() => {
-        setSavedMovies((movies) =>
-          movies.filter((m) => m._id !== movie._id)
-        )
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }*/
 
   const handleDeleteMovie = (movie) => {
-    MainApi
-      .deleteMovies(movie._id)
+    MainApi.deleteMovies(movie._id)
       .then(() => {
         setSavedMovies((movies) =>
           movies.filter((m) => m._id !== movie._id)
@@ -256,8 +237,6 @@ function App() {
         <ProtectedRoute loggedIn={loggedIn}>
           <SavedMovies
             loggedIn={loggedIn}
-            onDelete={handleDeleteMovie}
-            savedMovies={savedMovies}
             />
         </ProtectedRoute>
       }>
