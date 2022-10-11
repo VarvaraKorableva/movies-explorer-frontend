@@ -5,7 +5,7 @@ import * as MainApi from '../../utils/MainApi'
 import Preloader from '../Preloader/Preloader'
 import './SavedMovies.css'
 
-function SavedMovies({ onDelete, saveddMovies }) {
+function SavedMovies() {
 
   const [savedMovies, setSavedMovies] = React.useState([])
   const [keyWord, setKeyWord] = React.useState('')
@@ -89,7 +89,6 @@ function handleFindSavedMovieSubmit(keyWord, checkBoxStatus) {
           toRenderMovies={toRenderMovies}
           keyWord={keyWord}
           handleCardDelete={handleCardDelete}
-          //handleCardDelete={onDelete}
       />
       }
     </section>

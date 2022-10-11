@@ -1,5 +1,5 @@
-export const BASE_URL = 'http://localhost:3001';
-//'//api.moviesapp.nomoredomains.sbs';
+export const BASE_URL = '//api.moviesapp.nomoredomains.sbs';
+//export const BASE_URL = 'http://localhost:3001';
 
   function checkResponse(res) {
     if (res.ok) {
@@ -81,33 +81,6 @@ export const changeUserInfo = ( userData ) => {
   })
       .then(checkResponse)
 };
-/*
-export function saveMovies({
-  country, director, duration, year, description, image, trailerLink, thumbnail, owner, movieId, nameRU, nameEN
-}) {
-  return fetch(`${BASE_URL}/movies`, {
-    credentials: 'include',
-    method: "POST",
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      country: country,
-      director: director,
-      duration: duration,
-      year: year,
-      description: description,
-      image: image,
-      trailerLink: trailerLink,
-      thumbnail:thumbnail,
-      owner: owner,
-      movieId: movieId,
-      nameRU: nameRU,
-      nameEN:nameEN
-    })
-  }).then(checkResponse);
-}*/
 
 export function saveMovies(data) {
   return fetch(`${BASE_URL}/movies`, {
@@ -145,20 +118,3 @@ export const getSavedMovies = () => {
   })
       .then(checkResponse)
 };
-
-/*
-
-
-
-export const getContent = (token) => {
-  return fetch(`${BASE_URL}/users/me`, {
-      credentials: 'include',
-      method: "GET",
-      headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-      },
-  })
-      .then(checkResponse)
-};*/
