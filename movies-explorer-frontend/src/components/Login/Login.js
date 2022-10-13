@@ -34,6 +34,7 @@ function Login({handleLoginSubmit, logError, errorMessage}) {
                    required: "Поле обязательно для заполнения",
                    minLength: { value: 4, message: "E-mail должен содержать минимум 4 символа" },
                    maxLength: { value: 30, message: "E-mail не может превышать 30 символов" },
+                   //pattern: { /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/, message: "E-mail не может превышать 30 символов" },
                    pattern: /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/,
                  })}
             />
@@ -63,6 +64,7 @@ function Login({handleLoginSubmit, logError, errorMessage}) {
         {logError?
         <p className='error-message'>{errorMessage}</p>
       : <></>}
+
         <button className={`'login__btn' ${isValid? 'login__btn_active': 'login__btn'}`} type='submit' disabled={!isValid}>Войти</button>
           <div className='login__wrapper'>
             <p className='login__subtitle'>Еще не зарегистрированы?

@@ -5,7 +5,7 @@ import SavedMoviesCard from "../../SavedMovies/SavedMoviesCard/SavedMoviesCard"
 
   import { useLocation } from 'react-router-dom'
 
-function MoviesCardList({ savedMovies, onSave, limit, checkboxStatus, beatfilmMovies, isSaveBtnCliked, handleSaveMovie, toRenderMovies, keyWord, handleCardDelete, onDelete}) {
+function MoviesCardList({ handleSavedCardDelete, savedMovies, onSave, limit, checkboxStatus, beatfilmMovies, isSaveBtnCliked, handleSaveMovie, toRenderMovies, keyWord, handleCardDelete, onDelete}) {
 
   const location = useLocation();
 
@@ -34,7 +34,7 @@ function MoviesCardList({ savedMovies, onSave, limit, checkboxStatus, beatfilmMo
           savedMovie={item}
           key={item._id || item.movieId}
           checkboxStatus={checkboxStatus}
-          handleCardDelete={handleCardDelete}
+          handleCardDelete={handleSavedCardDelete}
           />
       ))}
     </section>
@@ -45,7 +45,7 @@ function MoviesCardList({ savedMovies, onSave, limit, checkboxStatus, beatfilmMo
           savedMovie={item}
           key={item._id || item.movieId}
           checkboxStatus={checkboxStatus}
-          handleCardDelete={handleCardDelete}
+          handleCardDelete={handleSavedCardDelete}
           />
       ))}
     </section>
