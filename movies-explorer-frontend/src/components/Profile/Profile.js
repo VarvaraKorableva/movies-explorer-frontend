@@ -8,7 +8,7 @@ function Profile({ handleSignOut, changeUserInfoSubmit, error, errorMessage }) {
 
   const currentUser = React.useContext(CurrentUserContext);
 
-  const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({mode: "onBlur"});
+  const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({mode: "onChange"});
 
   const onSubmit = data => {
      changeUserInfoSubmit({
@@ -67,3 +67,11 @@ function Profile({ handleSignOut, changeUserInfoSubmit, error, errorMessage }) {
 }
 
 export default Profile;
+
+/*
+localStorage.removeItem('moviesAfterFindShortMovies')
+localStorage.removeItem('moviesAfterFilter')
+localStorage.removeItem('checkBoxStatus')
+localStorage.removeItem('checkboxChange')
+localStorage.removeItem('keyWordInSaved')
+localStorage.removeItem('keyWord')*/

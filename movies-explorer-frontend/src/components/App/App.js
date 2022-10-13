@@ -61,9 +61,12 @@ function App() {
   function handleGetUser() {
     MainApi.getUserInfo()
     .then((data) => {
+      setLoggedIn(true)
       setCurrentUser(data.user);
     })
     .catch((err) => {
+      setLoggedIn(false)
+      handleSignOut()
       console.log(err);
     });
   }
@@ -152,8 +155,7 @@ function App() {
       nameRU: movie.nameRU || 'no name',
       nameEN: movie.nameEN || 'no name',
     }
-    MainApi
-      .saveMovies(newMovie)
+    MainApi.saveMovies(newMovie)
       .then((newMovie) => {
         setSavedMovies([newMovie, ...savedMovies])
       })
@@ -185,10 +187,6 @@ function App() {
 
   const handleDeleteMovie = (movie) => {
     MainApi.deleteMovies(movie._id)
-   /* MainApi.getSavedMovies()
-      .then((data) => {
-        setSavedMovies(data)
-      })*/
       .then(() => {
         setSavedMovies((movies) =>
           movies.filter((m) => m._id !== movie._id)
@@ -203,7 +201,6 @@ function App() {
     MainApi.deleteMovies(savedMovie._id)
     MainApi.getSavedMovies()
     .then((data) => {
-     // setToRenderMovies(data.data)
       setSavedMovies(data.data)
     })
       .catch((err) => {

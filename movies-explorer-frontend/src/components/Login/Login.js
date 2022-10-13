@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form"
 
 function Login({handleLoginSubmit, logError, errorMessage}) {
 
-  const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({mode: "onBlur"});
+  const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({mode: "onChange"});
   const onSubmit = data => {
     handleLoginSubmit({
       password: data.password,

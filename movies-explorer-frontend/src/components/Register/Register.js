@@ -5,7 +5,7 @@ import registerLogo from '../../images/logo.svg'
 import { Link } from 'react-router-dom';
 
 function Register({handleRegSubmit, errorMessage, error}){
-  const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({mode: "onBlur"});
+  const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({mode: "onChange"});
   const onSubmit = data => {
     handleRegSubmit({
       password: data.password,

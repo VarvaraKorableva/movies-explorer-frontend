@@ -4,7 +4,6 @@ import './MoviesCard.css'
 function MoviesCard({ onDelete, onSave, movie, savedMovies }) {
 
   const [isSaveBtnCliked,setIsSaveBtnCliked] = React.useState(false)
-  //const savedMovies = JSON.parse(localStorage.getItem('savedData'))
   const isSaved = movie.id && savedMovies.some((m) => m.movieId === movie.id)
 
 
