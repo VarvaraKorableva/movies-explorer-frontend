@@ -7,11 +7,6 @@ function MainApiSearchForm({ handleFindSavedMovieSubmit }) {
   const [error, setError] = React.useState(false)
   const [checkBoxStatus, setCheckBoxStatus] = React.useState(false)
 
-  React.useEffect(() => {
-    const query = localStorage.getItem('keyWordInSaved')
-    setKeyWord(query)
-  },[])
-
   const handleCheckBoxChange = (e) => {
     setCheckBoxStatus(e.target.checked)
   }
@@ -35,6 +30,7 @@ function MainApiSearchForm({ handleFindSavedMovieSubmit }) {
     <>
     <div className='searchform'>
       <form className='searchform__inside' onSubmit={onSubmitSavedMovie}>
+
         <div className='searchform__loop'></div>
         <fieldset className='searchform__fieldset'>
           <input className='searchform__input'
@@ -48,17 +44,26 @@ function MainApiSearchForm({ handleFindSavedMovieSubmit }) {
           {error ? 'Введите ключевое слово': ''}
           </span>
         </fieldset>
-        <button className='searchform__button_active' type='submit'></button>
+        <button
+          className='searchform__button_active'
+          type='submit'
+          onChange={handleCheckBoxChange}>
+        </button>
       </form>
     </div>
-
-    <div className='wrapper'>
-      <label className='checkbox'>
-        <input className='checkbox__input' type='checkbox' onChange={handleCheckBoxChange}></input>
-        <div className='checkbox__div'></div>
-      </label>
-      <p className='filtercheckbox'>Короткометражки</p>
-    </div>
+      <div className='wrapper'>
+        <label className='checkbox'>
+          <input
+            className='checkbox__input'
+            type='checkbox'
+            onChange={handleCheckBoxChange}
+            checked={checkBoxStatus}
+            >
+          </input>
+          <div className='checkbox__div'></div>
+        </label>
+        <p className='filtercheckbox'>Короткометражки</p>
+      </div>
     </>
     )
   }

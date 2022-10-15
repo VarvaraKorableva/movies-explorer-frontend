@@ -24,7 +24,9 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({})
   const [savedMovies, setSavedMovies] = React.useState([])
   const [errorMessage, setErrorMessage] = React.useState('')
-
+  const [errorChangeProfileMessage, setErrorChangeProfileMessage] = React.useState('')
+  const [changeProfileMessage, setChangeProfileMessage] = React.useState('')
+  const [profileError, setProfileError] = React.useState('')
   const [error, setError] = React.useState(false)
   const [logError, setLogError] = React.useState(false)
 
@@ -62,11 +64,10 @@ function App() {
     MainApi.getUserInfo()
     .then((data) => {
       setLoggedIn(true)
-      setCurrentUser(data.user);
+      setCurrentUser(data.user)
     })
     .catch((err) => {
       setLoggedIn(false)
-      handleSignOut()
       console.log(err);
     });
   }
@@ -86,6 +87,7 @@ function App() {
     .catch((err) => {
       console.log(err)
       setError(true)
+      setLoggedIn(false)
       if (err.status === 409 || 11000) {
         setErrorMessage('Ошибка, такой Email уже существует.');
       } else {
@@ -99,10 +101,16 @@ function App() {
     MainApi.signOut()
     .then((res) => {
       setLoggedIn(false)
-      navigate('/');
+      navigate('/')
+      setSavedMovies([])
+      localStorage.removeItem('moviesAfterFindShortMovies')
+      localStorage.removeItem('moviesAfterFilter')
+      localStorage.removeItem('checkBoxStatus')
+      localStorage.removeItem('keyWord')
     })
     .catch((err) => {
       console.log(err)
+      setLoggedIn(false)
     })
   }
 
@@ -118,6 +126,7 @@ function App() {
     })
     .catch((err) => {
       console.log(err)
+      setLoggedIn(false)
       setLogError(true)
         if (err.status === 401 || 404 ) {
           setErrorMessage('Вы ввели неправильный логин или пароль.');
@@ -157,6 +166,7 @@ function App() {
     }
     MainApi.saveMovies(newMovie)
       .then((newMovie) => {
+        console.log('ghbdtn')
         setSavedMovies([newMovie, ...savedMovies])
       })
       .catch((err) => {
@@ -172,15 +182,16 @@ function App() {
           name: data.name,
           email: data.email
         });
-        setError(false)
+        setProfileError(false)
+        setChangeProfileMessage('Изменения внесены');
       })
       .catch((err) => {
         console.log(err)
-        setError(true)
+        setProfileError(true)
         if (err.status === 409 || 11000) {
-          setErrorMessage('Ошибка, такой Email уже существует.');
+          setErrorChangeProfileMessage('Ошибка, такой Email уже существует.');
         } else {
-          setErrorMessage('На сервере произошла ошибка.');
+          setErrorChangeProfileMessage('На сервере произошла ошибка.');
         }
       })
   }
@@ -207,8 +218,6 @@ function App() {
         console.log(err);
       })
   }
-
-
 
   return (
   <CurrentUserContext.Provider value={currentUser}>
@@ -266,8 +275,9 @@ function App() {
             handleSignOut={handleSignOut}
             isBurgerMenuCliked={handleBurgerMenuClick}
             changeUserInfoSubmit={changeUserInfoSubmit}
-            error={error}
-            errorMessage={errorMessage}/>
+            error={profileError}
+            changeProfileMessage={changeProfileMessage}
+            errorChangeProfileMessage={errorChangeProfileMessage}/>
         </ProtectedRoute>
       }>
     </Route>
@@ -294,7 +304,9 @@ function App() {
     <Route
       path="*"
       element={
-        <NotFoundPage />
+        <ProtectedRoute loggedIn={loggedIn}>
+          <NotFoundPage />
+        </ProtectedRoute>
       }>
     </Route>
 

@@ -17,47 +17,32 @@ function SavedMovies({handleSavedCardDelete, savedMovies }) {
 
   const isEpmty = toRenderMovies.length === 0
 
-/*
   React.useEffect(() => {
+    savedMovies.length === 0?
+      setToRenderMovies([])
+      :
       setToRenderMovies(savedMovies)
-  },)*/
-/*
-  React.useEffect(() => {
-    MainApi.getSavedMovies()
-    .then((data) => {
-      //localStorage.setItem('savedData', JSON.stringify(data.data))
-      setToRenderMovies(data)
-      setSavedMovies(data)
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  },)
-*/
+  },[])
 
-/*
-  localStorage.removeItem('moviesAfterFindShortMovies')
-  localStorage.removeItem('moviesAfterFilter')*/
-
-function handleFindSavedMovieSubmit(keyWord, checkBoxStatus) {
+function handleFindSavedMovieSubmit(keyWord, chBoxStatus) {
     setIsSearchComplited(true)
     setIsLoading(true)
     setKeyWord(keyWord)
-    setCheckboxStatus(checkBoxStatus)
-    localStorage.setItem('keyWordInSaved', keyWord)
-    localStorage.setItem('checkboxChange', checkBoxStatus)
+    setCheckboxStatus(chBoxStatus)
     MainApi.getSavedMovies()
     .then((data) => {
       setIsLoading(false)
       const moviesAfterFilter = filterItems(data.data, keyWord)
-      //localStorage.setItem('moviesAfterFilter', JSON.stringify(moviesAfterFilter))
       const moviesAfterFindShortMovies = handleFindShortMovies(moviesAfterFilter)
-      //localStorage.setItem('moviesAfterFindShortMovies', JSON.stringify(moviesAfterFindShortMovies))
+      const moviesAfterShortMoviesFilter = handleFindShortMovies(data.data)
 
+      checkboxStatus === true && keyWord === ""?
+        setToRenderMovies(moviesAfterShortMoviesFilter)
+        :
       checkboxStatus?
-        setToRenderMovies(moviesAfterFindShortMovies)
-      :
         setToRenderMovies(moviesAfterFilter)
+        :
+        setToRenderMovies(moviesAfterFindShortMovies)
     })
     .catch((err) => {
       setIsError(true)

@@ -3,61 +3,132 @@ import './Profile.css'
 import {CurrentUserContext} from '../../contexts/CurrentUserContext'
 import { useForm } from "react-hook-form"
 
+function Profile({ handleSignOut, changeUserInfoSubmit, error, errorChangeProfileMessage, changeProfileMessage }) {
+  const [name, setName] = React.useState('')
+  const [email, setEmail] = React.useState('')
+  const [errorName, setErrorName] = React.useState('')
+  const [errorEmail, setErrorEmail] = React.useState('')
+  const [isInputDisabled, setIsInputDisabled] = React.useState(true)
+  const [isFormValid, setIsFormValid] = React.useState(false)
+  const [isMessage, setIsMessage] = React.useState(false)
+  const currentUser = React.useContext(CurrentUserContext)
 
-function Profile({ handleSignOut, changeUserInfoSubmit, error, errorMessage }) {
+  React.useEffect(() => {
+    setName(currentUser.name)
+    setEmail(currentUser.email)
+  }, [currentUser])
 
-  const currentUser = React.useContext(CurrentUserContext);
+  const handleNameChange = (e) => {
+    const validName = /^[a-zA-Zа-яА-Я'][a-zA-Zа-яА-Я-' ]+[a-zA-Zа-яА-Я']?$/u.test(
+      e.target.value
+    )
 
-  const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm({mode: "onChange"});
+    if (!e.target.value.length) {
+      setErrorName('Имя пользователя должно быть заполнено.')
+     } else if (e.target.value.length < 2) {
+       setErrorName('Имя пользователя должно быть не менее 2 символов.')
+     } else if (!validName) {
+       setErrorName('Имя должно содержать только латиницу, кириллицу, пробел или дефис.')
+     } else if (validName) {
+       setErrorName('')
+     } else if (e.target.value.length > 30) {
+       setErrorName('Имя пользователя должно быть не более 30 символов.')
+     } else {
+       setErrorName('')
+     }
+     setName(e.target.value)
+   }
 
-  const onSubmit = data => {
-     changeUserInfoSubmit({
-      name: data.name,
-      email: data.email,
-    });
-    reset();
-  };
+   const handleEmailChange = (e) => {
+    const validEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+      e.target.value
+    )
+
+    if (!e.target.value.length) {
+      setErrorEmail('Электронная почта должна быть заполнена.')
+    } else if (!validEmail) {
+      setErrorEmail('Неверный формат электронной почты.')
+    } else {
+      setErrorEmail('')
+    }
+    setEmail(e.target.value)
+  }
+
+  const handleInputDisabled = () => {
+    setIsInputDisabled(!isInputDisabled)
+  }
+
+  const handleSubmitProfileForm = (e) => {
+    e.preventDefault()
+    changeUserInfoSubmit({ name, email })
+    handleInputDisabled()
+    setIsMessage(true)
+  }
+
+  React.useEffect(() => {
+    console.log('bo')
+    if (errorName || errorEmail) {
+      setIsFormValid(false)
+    } else {
+      setIsFormValid(true)
+    }
+  }, [errorEmail, errorName])
+
+  React.useEffect(() => {
+    if (name === currentUser.name && email === currentUser.email) {
+      setIsFormValid(false)
+    } else {
+      setIsFormValid(true)
+    }
+  }, [currentUser.email, currentUser.name, email, name])
 
   return (
     <div className='profile'>
-      <form className='profile__form' onSubmit={handleSubmit(onSubmit)}>
+      <form className='profile__form' onSubmit={handleSubmitProfileForm}>
         <h2 className='profile__title'>Привет, {currentUser.name}!</h2>
         <label className='profile__label'>Имя
           <input className='profile__input'
-            placeholder={currentUser.name}
-            {...register("name", {
-              required: "Поле обязательно для заполнения",
-              minLength: { value: 2, message: "Имя должно содержать минимум 2 знаков, пожалуйста, исправьте" },
-              maxLength: { value: 30, message: "Имя не может превышать 30 символов, пожалуйста, исправьте" },
-              pattern: /[а-яА-Яa-zA-ZёË\- ]{1,}/,
-            })}
+            value={name || ''}
+            name='name'
+            type='text'
+            placeholder="Имя"
+            onChange={handleNameChange}
+            disabled={!isInputDisabled}
           />
         </label>
         <span className='profile__inputmistake'>
-          {errors?.name && <p className='profile__inputmistake'>{errors?.name?.message || 'Error'}</p>}
+        {errorName}
         </span>
 
         <label className='profile__label'>E-mail
           <input className='profile__input'
-            placeholder={currentUser.email}
-                 {...register("email", {
-                   required: "Поле обязательно для заполнения",
-                   minLength: { value: 4, message: "E-mail должен содержать минимум 4 символа" },
-                   maxLength: { value: 30, message: "E-mail не может превышать 30 символов" },
-                   pattern: /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/,
-                 })}
+              value={email || ''}
+              name='email'
+              type='text'
+              placeholder="Email"
+              onChange={handleEmailChange}
+              disabled={!isInputDisabled}
           />
         </label>
         <span className='profile__inputmistake'>
-          {errors?.email && <p className='profile__inputmistake'>{errors?.email?.message || 'Неправльный формат электронной почты'}</p>}
+        {errorEmail}
         </span>
+
         {error?
-        <p className='error-message'>{errorMessage}</p>
-      : <></>}
-        <button className={`'profile__btn' ${isValid? 'profile__btn_active': 'profile__btn'}`}
-                type='submit'
-                disabled={!isValid}
-                >Редактировать</button>
+        <p className='profile__inputmistake'>{errorChangeProfileMessage}</p>
+        :
+        <p className='profile__inputmistake'>{changeProfileMessage}</p>
+        }
+
+        <button
+              className=
+              'profile__btn'
+              type='submit'
+              disabled={!isFormValid}
+              onClick={handleInputDisabled}
+            >
+              Редактировать
+            </button>
       </form>
       <div className='profile__wrapper'>
         <button className='profile__entrybtn' onClick={handleSignOut}>Выйти из аккаунта</button>
@@ -68,10 +139,15 @@ function Profile({ handleSignOut, changeUserInfoSubmit, error, errorMessage }) {
 
 export default Profile;
 
+
 /*
-localStorage.removeItem('moviesAfterFindShortMovies')
-localStorage.removeItem('moviesAfterFilter')
-localStorage.removeItem('checkBoxStatus')
-localStorage.removeItem('checkboxChange')
-localStorage.removeItem('keyWordInSaved')
-localStorage.removeItem('keyWord')*/
+
+<div className='profile__content-btn'>
+<button className={`'profile__btn' ${isValid? 'profile__btn_active': 'profile__btn'}`}
+        >Редактировать</button>
+
+
+        {error?
+        <p className='error-message'>{errorMessage}</p>
+      : <></>}
+        */

@@ -25,6 +25,7 @@ function Movies({ limit, addMovies, onDelete, onSave, savedMovies  }) {
     setCheckboxStatus(checkBoxStatus)
     localStorage.setItem('keyWord', keyWord)
     localStorage.setItem('checkBoxStatus', checkBoxStatus)
+
     MoviesApi.getMovies()
     .then((data) => {
       setIsLoading(false)
@@ -34,10 +35,10 @@ function Movies({ limit, addMovies, onDelete, onSave, savedMovies  }) {
       const moviesAfterFindShortMovies = handleFindShortMovies(moviesAfterFilter)
       localStorage.setItem('moviesAfterFindShortMovies', JSON.stringify(moviesAfterFindShortMovies))
       checkboxStatus?
-        setToRenderMovies(moviesAfterFindShortMovies)
-      :
         setToRenderMovies(moviesAfterFilter)
-    })
+        :
+        setToRenderMovies(moviesAfterFindShortMovies)
+      })
     .catch((err) => {
       setIsError(true)
       setSearchMessage(
@@ -73,12 +74,11 @@ React.useEffect(() => {
   !(localStorage.getItem('moviesAfterFilter')) ?
   setToRenderMovies([])
   :
-  checkBoxStatus?
-    setToRenderMovies(moviesAfterFindShortMovies)
-  :
+  (checkBoxStatus?
     setToRenderMovies(moviesAfterFilter)
-
-
+    :
+    setToRenderMovies(moviesAfterFindShortMovies)
+  )
 }, [checkboxStatus, keyWord])
 
   return (
