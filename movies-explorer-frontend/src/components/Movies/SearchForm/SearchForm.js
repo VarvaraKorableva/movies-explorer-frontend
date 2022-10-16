@@ -25,7 +25,6 @@ function SearchForm({ handleFindNewMovieSubmit }) {
 
   const handleCheckBoxChange = (e) => {
     setCheckBoxStatus(e.target.checked)
-    console.log(checkBoxStatus)
   }
   const handleSearchInputChange = (e) => {
     setKeyWord(e.target.value)
@@ -52,6 +51,7 @@ function SearchForm({ handleFindNewMovieSubmit }) {
         <button className='searchform__button_active' type='submit'></button>
       </form>
     </div>
+
     <div className='wrapper'>
       <label className='checkbox'>
         <input

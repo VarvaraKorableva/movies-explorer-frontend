@@ -107,6 +107,7 @@ function App() {
       localStorage.removeItem('moviesAfterFilter')
       localStorage.removeItem('checkBoxStatus')
       localStorage.removeItem('keyWord')
+      localStorage.removeItem('moviesData')
     })
     .catch((err) => {
       console.log(err)
@@ -166,7 +167,6 @@ function App() {
     }
     MainApi.saveMovies(newMovie)
       .then((newMovie) => {
-        console.log('ghbdtn')
         setSavedMovies([newMovie, ...savedMovies])
       })
       .catch((err) => {

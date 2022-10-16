@@ -9,7 +9,7 @@ function Movies({ limit, addMovies, onDelete, onSave, savedMovies  }) {
 
   const [isLoading, setIsLoading] = React.useState(false)
   const [keyWord, setKeyWord] = React.useState('')
-  const [checkboxStatus, setCheckboxStatus] = React.useState(false)
+  const [checkboxStatus, setCheckboxStatus] = React.useState(true)
   const [searchMessage, setSearchMessage] = React.useState('')
   const [isSearchComplited, setIsSearchComplited] = React.useState(false)
   const [toRenderMovies, setToRenderMovies] = React.useState([])
@@ -30,6 +30,7 @@ function Movies({ limit, addMovies, onDelete, onSave, savedMovies  }) {
     .then((data) => {
       setIsLoading(false)
       const movie = data
+
       const moviesAfterFilter = filterItems(movie, keyWord)
       localStorage.setItem('moviesAfterFilter', JSON.stringify(moviesAfterFilter))
       const moviesAfterFindShortMovies = handleFindShortMovies(moviesAfterFilter)
@@ -38,7 +39,7 @@ function Movies({ limit, addMovies, onDelete, onSave, savedMovies  }) {
         setToRenderMovies(moviesAfterFilter)
         :
         setToRenderMovies(moviesAfterFindShortMovies)
-      })
+    })
     .catch((err) => {
       setIsError(true)
       setSearchMessage(

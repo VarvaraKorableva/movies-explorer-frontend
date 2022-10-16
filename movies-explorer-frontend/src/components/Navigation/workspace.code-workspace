@@ -1,12 +1,14 @@
 {
 	"folders": [
 		{
-			"name": "back",
-			"path": "../../../../../back"
-		},
-		{
 			"name": "movies-explorer-frontend",
 			"path": "../../../.."
+		},
+		{
+			"path": "../../../../../../movies-explorer-api"
+		},
+		{
+			"path": "../../../../../back"
 		}
 	],
 	"settings": {}
