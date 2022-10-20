@@ -308,7 +308,7 @@ function App() {
       path="/signin"
       element={
         <ProtectedRoute
-          user={true}
+          anonymous={true}
           loggedIn={loggedIn}>
           <Login
             handleLoginSubmit={handleLoginSubmit}
@@ -322,7 +322,7 @@ function App() {
       path="/signup"
       element={
         <ProtectedRoute
-          user={true}
+          anonymous={true}
           loggedIn={loggedIn}>
             <Register
               handleRegSubmit={handleRegSubmit}

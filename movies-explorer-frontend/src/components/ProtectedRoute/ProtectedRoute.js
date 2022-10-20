@@ -8,7 +8,7 @@ const ProtectedRoute = ({
   redirectUserPath = '/movies',
   children,
 }) => {
-  if (!loggedIn && anonymous) {
+  if (!loggedIn && !anonymous) {
     return <Navigate to={redirectPath} replace />;
   }
 
