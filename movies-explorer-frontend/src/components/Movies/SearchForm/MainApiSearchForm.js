@@ -47,7 +47,8 @@ function MainApiSearchForm({ handleFindSavedMovieSubmit }) {
         <button
           className='searchform__button_active'
           type='submit'
-          onChange={handleCheckBoxChange}>
+          onChange={handleCheckBoxChange}
+        >
         </button>
       </form>
     </div>
@@ -57,6 +58,7 @@ function MainApiSearchForm({ handleFindSavedMovieSubmit }) {
             className='checkbox__input'
             type='checkbox'
             onChange={handleCheckBoxChange}
+            checked={checkBoxStatus}
             >
           </input>
           <div className='checkbox__div'></div>

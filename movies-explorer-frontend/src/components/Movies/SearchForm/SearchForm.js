@@ -2,7 +2,7 @@ import React from "react"
 import './SearchForm.css'
 import './FilterCheckbox/FilterCheckbox.css'
 
-function SearchForm({ handleFindNewMovieSubmit }) {
+function SearchForm({ handleFindNewMovieSubmit, handleFindNewMoviesDataSubmit }) {
 
   const [keyWord, setKeyWord] = React.useState('')
   const [error, setError] = React.useState(false)
@@ -19,13 +19,19 @@ function SearchForm({ handleFindNewMovieSubmit }) {
       setError(true)
     }else{
       setError(false)
-      handleFindNewMovieSubmit(keyWord, checkBoxStatus);
+      const moviesData = JSON.parse(localStorage.getItem('moviesData'))
+      if (moviesData){
+        handleFindNewMoviesDataSubmit(keyWord, checkBoxStatus)
+      } else {
+        handleFindNewMovieSubmit(keyWord, checkBoxStatus)
+      }
     }
   };
 
   const handleCheckBoxChange = (e) => {
     setCheckBoxStatus(e.target.checked)
   }
+
   const handleSearchInputChange = (e) => {
     setKeyWord(e.target.value)
     setError(false)
@@ -57,7 +63,8 @@ function SearchForm({ handleFindNewMovieSubmit }) {
         <input
           className='checkbox__input'
           type='checkbox'
-          onChange={handleCheckBoxChange}>
+          onChange={handleCheckBoxChange}
+          checked={checkBoxStatus}>
         </input>
         <div className='checkbox__div'></div>
       </label>

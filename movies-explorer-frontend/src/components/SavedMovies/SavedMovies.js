@@ -10,7 +10,6 @@ function SavedMovies({handleSavedCardDelete, savedMovies }) {
   const [keyWord, setKeyWord] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
   const [toRenderMovies, setToRenderMovies] = React.useState([])
-  const [checkboxStatus, setCheckboxStatus] = React.useState(false);
   const [isSearchComplited, setIsSearchComplited] = React.useState(false)
   const [isError, setIsError] = React.useState(false)
   const [searchMessage, setSearchMessage] = React.useState('')
@@ -28,21 +27,15 @@ function handleFindSavedMovieSubmit(keyWord, chBoxStatus) {
     setIsSearchComplited(true)
     setIsLoading(true)
     setKeyWord(keyWord)
-    setCheckboxStatus(chBoxStatus)
     MainApi.getSavedMovies()
     .then((data) => {
       setIsLoading(false)
       const moviesAfterFilter = filterItems(data.data, keyWord)
       const moviesAfterFindShortMovies = handleFindShortMovies(moviesAfterFilter)
-      const moviesAfterShortMoviesFilter = handleFindShortMovies(data.data)
-
-      checkboxStatus === true && keyWord === ""?
-        setToRenderMovies(moviesAfterShortMoviesFilter)
-        :
-      checkboxStatus?
-        setToRenderMovies(moviesAfterFilter)
-        :
+        chBoxStatus?
         setToRenderMovies(moviesAfterFindShortMovies)
+        :
+        setToRenderMovies(moviesAfterFilter)
     })
     .catch((err) => {
       setIsError(true)

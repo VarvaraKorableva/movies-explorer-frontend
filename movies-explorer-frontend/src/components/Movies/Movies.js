@@ -9,7 +9,6 @@ function Movies({ limit, addMovies, onDelete, onSave, savedMovies  }) {
 
   const [isLoading, setIsLoading] = React.useState(false)
   const [keyWord, setKeyWord] = React.useState('')
-  const [checkboxStatus, setCheckboxStatus] = React.useState(true)
   const [searchMessage, setSearchMessage] = React.useState('')
   const [isSearchComplited, setIsSearchComplited] = React.useState(false)
   const [toRenderMovies, setToRenderMovies] = React.useState([])
@@ -18,27 +17,42 @@ function Movies({ limit, addMovies, onDelete, onSave, savedMovies  }) {
   const isEpmty = toRenderMovies.length === 0
   const isDisappear = toRenderMovies.length <= limit
 
-  function handleFindNewMovieSubmit(keyWord, checkBoxStatus) {
+  function handleFindNewMoviesDataSubmit (keyWord, checkBox) {
+    setIsSearchComplited(true)
+    setKeyWord(keyWord)
+    localStorage.setItem('keyWord', keyWord)
+    localStorage.setItem('checkBoxStatus', checkBox)
+    const moviesData = JSON.parse(localStorage.getItem('moviesData'))
+    const moviesAfterFilter = filterItems(moviesData, keyWord)
+      localStorage.setItem('moviesAfterFilter', JSON.stringify(moviesAfterFilter))
+      const moviesAfterFindShortMovies = handleFindShortMovies(moviesAfterFilter)
+      localStorage.setItem('moviesAfterFindShortMovies', JSON.stringify(moviesAfterFindShortMovies))
+      checkBox?
+        setToRenderMovies(moviesAfterFindShortMovies)
+        :
+        setToRenderMovies(moviesAfterFilter)
+  }
+
+  function handleFindNewMovieSubmit (keyWord, checkBox) {
     setIsSearchComplited(true)
     setIsLoading(true)
     setKeyWord(keyWord)
-    setCheckboxStatus(checkBoxStatus)
     localStorage.setItem('keyWord', keyWord)
-    localStorage.setItem('checkBoxStatus', checkBoxStatus)
+    localStorage.setItem('checkBoxStatus', checkBox)
 
     MoviesApi.getMovies()
     .then((data) => {
       setIsLoading(false)
       const movie = data
-
+      localStorage.setItem('moviesData', JSON.stringify(data))
       const moviesAfterFilter = filterItems(movie, keyWord)
       localStorage.setItem('moviesAfterFilter', JSON.stringify(moviesAfterFilter))
       const moviesAfterFindShortMovies = handleFindShortMovies(moviesAfterFilter)
       localStorage.setItem('moviesAfterFindShortMovies', JSON.stringify(moviesAfterFindShortMovies))
-      checkboxStatus?
-        setToRenderMovies(moviesAfterFilter)
-        :
+      checkBox?
         setToRenderMovies(moviesAfterFindShortMovies)
+        :
+        setToRenderMovies(moviesAfterFilter)
     })
     .catch((err) => {
       setIsError(true)
@@ -70,17 +84,17 @@ function Movies({ limit, addMovies, onDelete, onSave, savedMovies  }) {
 React.useEffect(() => {
   const moviesAfterFilter = JSON.parse(localStorage.getItem('moviesAfterFilter'))
   const moviesAfterFindShortMovies = JSON.parse(localStorage.getItem('moviesAfterFindShortMovies'))
-  const checkBoxStatus = localStorage.getItem('checkBoxStatus')
+  const checkBox = JSON.parse(localStorage.getItem('checkBoxStatus'))
 
   !(localStorage.getItem('moviesAfterFilter')) ?
   setToRenderMovies([])
   :
-  (checkBoxStatus?
-    setToRenderMovies(moviesAfterFilter)
-    :
+  (checkBox?
     setToRenderMovies(moviesAfterFindShortMovies)
+    :
+    setToRenderMovies(moviesAfterFilter)
   )
-}, [checkboxStatus, keyWord])
+}, [])
 
   return (
     <>
@@ -90,6 +104,7 @@ React.useEffect(() => {
       <section className='main'>
       <SearchForm
         handleFindNewMovieSubmit={handleFindNewMovieSubmit}
+        handleFindNewMoviesDataSubmit={handleFindNewMoviesDataSubmit}
         keyWord={keyWord}
       />
       {isError?
@@ -99,7 +114,6 @@ React.useEffect(() => {
       :
       <MoviesCardList
         limit={limit}
-        checkboxStatus={checkboxStatus}
         beatfilmMovies={toRenderMovies}
         savedMovies={savedMovies}
         keyWord={keyWord}

@@ -91,7 +91,10 @@ function App() {
       if (err.status === 409 || 11000) {
         setErrorMessage('Ошибка, такой Email уже существует.');
       } else {
-        setErrorMessage('На сервере произошла ошибка.');
+        setErrorMessage('На сервере произошла ошибка.')
+        setTimeout(function(){
+          setErrorMessage('');
+        }, 5000)
       }
     })
   }
@@ -129,10 +132,16 @@ function App() {
       console.log(err)
       setLoggedIn(false)
       setLogError(true)
-        if (err.status === 401 || 404 ) {
-          setErrorMessage('Вы ввели неправильный логин или пароль.');
-        } else {
-          setErrorMessage('На сервере произошла ошибка.');
+      if (err.status === 401 || 404 ) {
+        setErrorMessage('Вы ввели неправильный логин или пароль.')
+        setTimeout(function(){
+          setErrorMessage('');
+        }, 5000)
+      } else {
+        setErrorMessage('На сервере произошла ошибка.')
+        setTimeout(function(){
+          setErrorChangeProfileMessage('');
+        }, 5000)
         }
     })
   }
@@ -183,15 +192,24 @@ function App() {
           email: data.email
         });
         setProfileError(false)
-        setChangeProfileMessage('Изменения внесены');
+        setChangeProfileMessage('Изменения внесены')
+        setTimeout(function(){
+          setChangeProfileMessage('');
+        }, 5000)
       })
       .catch((err) => {
         console.log(err)
         setProfileError(true)
         if (err.status === 409 || 11000) {
-          setErrorChangeProfileMessage('Ошибка, такой Email уже существует.');
+          setErrorChangeProfileMessage('Ошибка, такой Email уже существует.')
+          setTimeout(function(){
+            setErrorChangeProfileMessage('');
+        }, 2000)
         } else {
-          setErrorChangeProfileMessage('На сервере произошла ошибка.');
+          setErrorChangeProfileMessage('На сервере произошла ошибка.')
+          setTimeout(function(){
+            setErrorChangeProfileMessage('');
+          }, 5000)
         }
       })
   }
@@ -232,16 +250,16 @@ function App() {
     <Route
       path="/"
       element={
-        <Main
-          loggedIn={loggedIn}
-          isBurgerMenuCliked={handleBurgerMenuClick}/>
+        <Main/>
       }>
     </Route>
 
     <Route
       path="/movies"
       element={
-        <ProtectedRoute loggedIn={loggedIn}>
+        <ProtectedRoute
+          loggedIn={loggedIn}
+          anonymous={false}>
           <Movies
             loggedIn={loggedIn}
             limit={limit}
@@ -257,7 +275,9 @@ function App() {
     <Route
       path="/saved-movies"
       element={
-        <ProtectedRoute loggedIn={loggedIn}>
+        <ProtectedRoute
+          loggedIn={loggedIn}
+          anonymous={false}>
           <SavedMovies
             loggedIn={loggedIn}
             handleSavedCardDelete={handleSavedCardDelete}
@@ -270,7 +290,9 @@ function App() {
     <Route
       path="/profile"
       element={
-        <ProtectedRoute loggedIn={loggedIn}>
+        <ProtectedRoute
+          loggedIn={loggedIn}
+          anonymous={false}>
           <Profile
             handleSignOut={handleSignOut}
             isBurgerMenuCliked={handleBurgerMenuClick}
@@ -285,28 +307,35 @@ function App() {
     <Route
       path="/signin"
       element={
-        <Login
-        handleLoginSubmit={handleLoginSubmit}
-        errorMessage={errorMessage}
-        logError={logError}/>
-      }>
+        <ProtectedRoute
+          user={true}
+          loggedIn={loggedIn}>
+          <Login
+            handleLoginSubmit={handleLoginSubmit}
+            errorMessage={errorMessage}
+            logError={logError}/>
+        </ProtectedRoute>
+          }>
     </Route>
 
     <Route
       path="/signup"
       element={
-        <Register
-          handleRegSubmit={handleRegSubmit}
-          errorMessage={errorMessage}
-          error={error}/>}>
+        <ProtectedRoute
+          user={true}
+          loggedIn={loggedIn}>
+            <Register
+              handleRegSubmit={handleRegSubmit}
+              errorMessage={errorMessage}
+              error={error}/>
+        </ProtectedRoute>
+      }>
     </Route>
 
     <Route
       path="*"
       element={
-        <ProtectedRoute loggedIn={loggedIn}>
-          <NotFoundPage />
-        </ProtectedRoute>
+        <NotFoundPage />
       }>
     </Route>
 
