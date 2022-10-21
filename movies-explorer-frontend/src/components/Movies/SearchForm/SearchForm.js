@@ -11,6 +11,8 @@ function SearchForm({ handleFindNewMovieSubmit, handleFindNewMoviesDataSubmit })
   React.useEffect(() => {
     const query = localStorage.getItem('keyWord')
     setKeyWord(query)
+    const checkBox = JSON.parse(localStorage.getItem('checkBoxStatus'))
+    setCheckBoxStatus(checkBox)
   },[])
 
   const onSubmitMovie = (e) => {

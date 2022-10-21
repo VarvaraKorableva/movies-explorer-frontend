@@ -1,7 +1,6 @@
 import React from 'react'
 import './Profile.css'
 import {CurrentUserContext} from '../../contexts/CurrentUserContext'
-import { useForm } from "react-hook-form"
 
 function Profile({ handleSignOut, changeUserInfoSubmit, error, errorChangeProfileMessage, changeProfileMessage }) {
   const [name, setName] = React.useState('')
@@ -10,7 +9,6 @@ function Profile({ handleSignOut, changeUserInfoSubmit, error, errorChangeProfil
   const [errorEmail, setErrorEmail] = React.useState('')
   const [isInputDisabled, setIsInputDisabled] = React.useState(true)
   const [isFormValid, setIsFormValid] = React.useState(false)
-  const [isMessage, setIsMessage] = React.useState(false)
   const currentUser = React.useContext(CurrentUserContext)
 
   React.useEffect(() => {
@@ -62,11 +60,9 @@ function Profile({ handleSignOut, changeUserInfoSubmit, error, errorChangeProfil
     e.preventDefault()
     changeUserInfoSubmit({ name, email })
     handleInputDisabled()
-    setIsMessage(true)
   }
 
   React.useEffect(() => {
-    console.log('bo')
     if (errorName || errorEmail) {
       setIsFormValid(false)
     } else {
@@ -138,16 +134,3 @@ function Profile({ handleSignOut, changeUserInfoSubmit, error, errorChangeProfil
 }
 
 export default Profile;
-
-
-/*
-
-<div className='profile__content-btn'>
-<button className={`'profile__btn' ${isValid? 'profile__btn_active': 'profile__btn'}`}
-        >Редактировать</button>
-
-
-        {error?
-        <p className='error-message'>{errorMessage}</p>
-      : <></>}
-        */

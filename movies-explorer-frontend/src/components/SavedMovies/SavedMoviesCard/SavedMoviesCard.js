@@ -6,7 +6,7 @@ function SavedMoviesCard({ savedMovie, handleCardDelete }) {
   function handleDelete() {
     handleCardDelete(savedMovie)
   }
-  
+
   function getTimeFromMins(mins) {
     let hours = Math.trunc(mins/60);
     let minutes = mins % 60;
@@ -26,7 +26,7 @@ function SavedMoviesCard({ savedMovie, handleCardDelete }) {
         alt={savedMovie.nameRU}
         />
       </a>
-      <button className='moviescard__savebtn_active' onClick={handleDelete}></button>
+      <button className='moviescard__savebtn_delete' onClick={handleDelete}></button>
       </div>
       <div className='moviescard__nameandtimecontainer'>
         <p className='moviescard__name'>{savedMovie.nameRU}</p>

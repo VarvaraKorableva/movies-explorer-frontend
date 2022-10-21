@@ -8,11 +8,12 @@ const ProtectedRoute = ({
   redirectUserPath = '/movies',
   children,
 }) => {
-  if (!loggedIn && !anonymous) {
+
+  if (!loggedIn && anonymous) {
     return <Navigate to={redirectPath} replace />;
   }
 
-  if (loggedIn && anonymous) {
+  if (loggedIn && !anonymous) {
     return <Navigate to={redirectUserPath} replace />;
   }
 
@@ -20,18 +21,3 @@ const ProtectedRoute = ({
 };
 
 export default ProtectedRoute;
-
-/*
-import {
-  Navigate,
-  Outlet,
-} from 'react-router-dom';
-
-const ProtectedRoute = ({ loggedIn, redirectPath = '/' }) => {
-  if (!loggedIn) {
-    return <Navigate to={redirectPath} replace />;
-  }
-
-  return <Outlet />;
-};*/
-

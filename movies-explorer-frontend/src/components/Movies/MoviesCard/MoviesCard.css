@@ -90,6 +90,28 @@
   background-image: url(../../../images/deleted.svg);
 }
 
+.moviescard__savebtn_delete {
+  width: 21px;
+  height: 21px;
+  border-radius: 50px;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  transition: 0.5s ease;
+  border: none;
+  cursor: pointer;
+  background-image: url(../../../images/deleted.svg);
+}
+
+.moviescard__savebtn_delete:hover {
+  transition: 0.5s ease;
+  opacity: 0.7;
+}
+
 .moviescard__savebtn {
   background-color:#F9F9F9;
   background-image: url(../../../images/save3d.svg);

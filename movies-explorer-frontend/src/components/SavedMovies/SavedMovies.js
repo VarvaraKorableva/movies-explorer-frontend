@@ -27,12 +27,16 @@ function handleFindSavedMovieSubmit(keyWord, chBoxStatus) {
     setIsSearchComplited(true)
     setIsLoading(true)
     setKeyWord(keyWord)
+    localStorage.setItem('keyWordSavedMovies', keyWord)
+    localStorage.setItem('checkBoxStatusSavedMovies', chBoxStatus)
     MainApi.getSavedMovies()
     .then((data) => {
       setIsLoading(false)
       const moviesAfterFilter = filterItems(data.data, keyWord)
+      localStorage.setItem('moviesAfterFilterSavedMovies', moviesAfterFilter)
       const moviesAfterFindShortMovies = handleFindShortMovies(moviesAfterFilter)
-        chBoxStatus?
+      localStorage.setItem('moviesAfterFindShortMoviesSavedMovies', moviesAfterFindShortMovies)
+      chBoxStatus?
         setToRenderMovies(moviesAfterFindShortMovies)
         :
         setToRenderMovies(moviesAfterFilter)

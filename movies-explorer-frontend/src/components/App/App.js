@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import './App.css'
@@ -30,10 +30,17 @@ function App() {
   const [error, setError] = React.useState(false)
   const [logError, setLogError] = React.useState(false)
 
+
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [limit, setLimit] = React.useState(0)
   const [amount, setAmount] = React.useState(0);
   const { width } = useWindowDimensions()
+
+   React.useEffect(() => {
+    handleTokenCheck();
+  }, []);
 
   const getLimit = () => {
     if (width <= 700 && width > 400) {
@@ -111,6 +118,11 @@ function App() {
       localStorage.removeItem('checkBoxStatus')
       localStorage.removeItem('keyWord')
       localStorage.removeItem('moviesData')
+
+      localStorage.removeItem('checkBoxStatusSavedMovies')
+      localStorage.removeItem('keyWordSavedMovies')
+      localStorage.removeItem('moviesAfterFindShortMoviesSavedMovies')
+      localStorage.removeItem('moviesAfterFilterSavedMovies')
     })
     .catch((err) => {
       console.log(err)
@@ -159,6 +171,22 @@ function App() {
   React.useEffect(() => {
     handleGetUser()
   }, [loggedIn])
+
+
+  function handleTokenCheck() {
+    MainApi.checkToken()
+      .then((res) => {
+        if (res)
+        setLoggedIn(true);
+        navigate(location.pathname);
+      })
+      .catch((err) => {
+        navigate('/signup')
+        console.log(`Ошибка проверки токена: ${err}`);
+        setLoggedIn(false);
+        });
+
+  }
 
   const handleSaveMovie = (movie) => {
     const newMovie = {
@@ -259,7 +287,8 @@ function App() {
       element={
         <ProtectedRoute
           loggedIn={loggedIn}
-          anonymous={false}>
+          anonymous={true}
+          >
           <Movies
             loggedIn={loggedIn}
             limit={limit}
@@ -277,7 +306,8 @@ function App() {
       element={
         <ProtectedRoute
           loggedIn={loggedIn}
-          anonymous={false}>
+          anonymous={true}
+          >
           <SavedMovies
             loggedIn={loggedIn}
             handleSavedCardDelete={handleSavedCardDelete}
@@ -292,7 +322,7 @@ function App() {
       element={
         <ProtectedRoute
           loggedIn={loggedIn}
-          anonymous={false}>
+          anonymous={true}>
           <Profile
             handleSignOut={handleSignOut}
             isBurgerMenuCliked={handleBurgerMenuClick}
@@ -308,7 +338,7 @@ function App() {
       path="/signin"
       element={
         <ProtectedRoute
-          anonymous={true}
+          anonymous={false}
           loggedIn={loggedIn}>
           <Login
             handleLoginSubmit={handleLoginSubmit}
@@ -322,7 +352,7 @@ function App() {
       path="/signup"
       element={
         <ProtectedRoute
-          anonymous={true}
+          anonymous={false}
           loggedIn={loggedIn}>
             <Register
               handleRegSubmit={handleRegSubmit}

@@ -21,8 +21,12 @@ function Header({loggedIn, isBurgerMenuCliked}) {
 
   return (
 
-    location.pathname === '/signup' || location.pathname === '/signin' ? <></> : (
-    <header className={`header ${loggedIn && location.pathname === '/'? 'header__nolog' : loggedIn ? 'header__log': 'header__nolog'}`}>
+    location.pathname === '/signup' || location.pathname === '/signin'? <></> : (
+    <header className={`header ${
+      (!loggedIn || loggedIn) && location.pathname === '/' ? 'header__nolog'
+      : loggedIn ? 'header__log'
+      : 'header__log'
+      }`}>
       <Link to="/">
         <img src={headerLogo} alt="Логотип" className='header__logo'/>
       </Link>

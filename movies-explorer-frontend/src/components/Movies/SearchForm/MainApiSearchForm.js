@@ -7,6 +7,13 @@ function MainApiSearchForm({ handleFindSavedMovieSubmit }) {
   const [error, setError] = React.useState(false)
   const [checkBoxStatus, setCheckBoxStatus] = React.useState(false)
 
+  React.useEffect(() => {
+    const query = localStorage.getItem('keyWordSavedMovies')
+    setKeyWord(query)
+    const checkBox = JSON.parse(localStorage.getItem('checkBoxStatusSavedMovies'))
+    setCheckBoxStatus(checkBox)
+  },[])
+
   const handleCheckBoxChange = (e) => {
     setCheckBoxStatus(e.target.checked)
   }
@@ -52,6 +59,7 @@ function MainApiSearchForm({ handleFindSavedMovieSubmit }) {
         </button>
       </form>
     </div>
+
       <div className='wrapper'>
         <label className='checkbox'>
           <input
@@ -59,7 +67,7 @@ function MainApiSearchForm({ handleFindSavedMovieSubmit }) {
             type='checkbox'
             onChange={handleCheckBoxChange}
             checked={checkBoxStatus}
-            >
+          >
           </input>
           <div className='checkbox__div'></div>
         </label>

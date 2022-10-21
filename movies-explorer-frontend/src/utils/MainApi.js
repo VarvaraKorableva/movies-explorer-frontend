@@ -1,6 +1,6 @@
-export const BASE_URL = '//api.moviesapp.nomoredomains.sbs';
+//export const BASE_URL = '//api.moviesapp.nomoredomains.sbs';
 
-//export const BASE_URL = 'http://localhost:3001';
+export const BASE_URL = 'http://localhost:3001';
 
 
   function checkResponse(res) {
@@ -119,4 +119,16 @@ export const getSavedMovies = () => {
       },
   })
       .then(checkResponse)
+};
+
+export const checkToken = () => {
+  return fetch(`${BASE_URL}/users/me`, {
+    credentials: 'include',
+    method: "GET",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+  })
+    .then(checkResponse)
 };
