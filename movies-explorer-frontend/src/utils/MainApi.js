@@ -1,6 +1,6 @@
-//export const BASE_URL = '//api.moviesapp.nomoredomains.sbs';
+export const BASE_URL = '//api.moviesapp.nomoredomains.sbs';
 
-export const BASE_URL = 'http://localhost:3002';
+//export const BASE_URL = 'http://localhost:3002';
 
 
   function checkResponse(res) {
