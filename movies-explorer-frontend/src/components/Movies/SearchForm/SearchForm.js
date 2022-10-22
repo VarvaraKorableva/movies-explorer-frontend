@@ -32,7 +32,13 @@ function SearchForm({ handleFindNewMovieSubmit, handleFindNewMoviesDataSubmit })
 
   const handleCheckBoxChange = (e) => {
     setCheckBoxStatus(e.target.checked)
-    handleFindNewMovieSubmit(keyWord, e.target.checked)
+    //handleFindNewMovieSubmit(keyWord, e.target.checked)
+    const moviesData = JSON.parse(localStorage.getItem('moviesData'))
+    if (moviesData){
+      handleFindNewMoviesDataSubmit(keyWord, checkBoxStatus)
+    } else {
+      handleFindNewMovieSubmit(keyWord, e.target.checked)
+    }
   }
 
   const handleSearchInputChange = (e) => {
