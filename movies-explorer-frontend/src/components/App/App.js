@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import './App.css'
@@ -30,16 +30,15 @@ function App() {
   const [error, setError] = React.useState(false)
   const [logError, setLogError] = React.useState(false)
 
-
-  const navigate = useNavigate();
-  const location = useLocation();
+  const navigate = useNavigate()
 
   const [limit, setLimit] = React.useState(0)
-  const [amount, setAmount] = React.useState(0);
+  const [amount, setAmount] = React.useState(0)
   const { width } = useWindowDimensions()
 
-   React.useEffect(() => {
-    handleTokenCheck();
+  React.useEffect(() => {
+    handleTokenCheck()
+    navigate('/')
   }, []);
 
   const getLimit = () => {
@@ -177,8 +176,8 @@ function App() {
     MainApi.checkToken()
       .then((res) => {
         if (res)
-        setLoggedIn(true);
-        navigate(location.pathname);
+        setLoggedIn(true)
+        navigate('/')
       })
       .catch((err) => {
         navigate('/signup')
@@ -265,7 +264,8 @@ function App() {
       })
   }
 
-  return (
+
+return (
   <CurrentUserContext.Provider value={currentUser}>
   <div className='page'>
     <Header
@@ -276,7 +276,7 @@ function App() {
     <Route index element={<Main />} />
 
     <Route
-      path="/"
+      exact path="/"
       element={
         <Main/>
       }>
@@ -286,9 +286,7 @@ function App() {
       path="/movies"
       element={
         <ProtectedRoute
-          loggedIn={loggedIn}
-          anonymous={true}
-          >
+          loggedIn={loggedIn}>
           <Movies
             loggedIn={loggedIn}
             limit={limit}
@@ -305,9 +303,7 @@ function App() {
       path="/saved-movies"
       element={
         <ProtectedRoute
-          loggedIn={loggedIn}
-          anonymous={true}
-          >
+          loggedIn={loggedIn}>
           <SavedMovies
             loggedIn={loggedIn}
             handleSavedCardDelete={handleSavedCardDelete}
@@ -321,8 +317,7 @@ function App() {
       path="/profile"
       element={
         <ProtectedRoute
-          loggedIn={loggedIn}
-          anonymous={true}>
+          loggedIn={loggedIn}>
           <Profile
             handleSignOut={handleSignOut}
             isBurgerMenuCliked={handleBurgerMenuClick}
@@ -337,28 +332,29 @@ function App() {
     <Route
       path="/signin"
       element={
-        <ProtectedRoute
-          anonymous={false}
-          loggedIn={loggedIn}>
-          <Login
+        loggedIn ? (
+          <Navigate to="/movies" replace />
+        ):
+        ( <Login
             handleLoginSubmit={handleLoginSubmit}
             errorMessage={errorMessage}
             logError={logError}/>
-        </ProtectedRoute>
+        )
           }>
     </Route>
 
     <Route
       path="/signup"
       element={
-        <ProtectedRoute
-          anonymous={false}
-          loggedIn={loggedIn}>
+        loggedIn ? (
+          <Navigate to="/movies" replace />
+        ) : (
             <Register
-              handleRegSubmit={handleRegSubmit}
-              errorMessage={errorMessage}
-              error={error}/>
-        </ProtectedRoute>
+            handleRegSubmit={handleRegSubmit}
+            errorMessage={errorMessage}
+            error={error}
+          />
+        )
       }>
     </Route>
 

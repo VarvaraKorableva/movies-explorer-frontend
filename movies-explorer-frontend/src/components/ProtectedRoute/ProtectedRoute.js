@@ -1,23 +1,26 @@
+/*import React from 'react'
+import { Navigate, Outlet } from 'react-router-dom'
+
+const ProtectedRoute = (props) => {
+  return props.loggedIn ? <Outlet /> : <Navigate to="/" replace />
+}
+
+export default ProtectedRoute*/
+
 import React from "react";
 import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({
   loggedIn,
-  anonymous,
   redirectPath = '/',
-  redirectUserPath = '/movies',
   children,
 }) => {
 
-  if (!loggedIn && anonymous) {
+  if (!loggedIn) {
     return <Navigate to={redirectPath} replace />;
-  }
-
-  if (loggedIn && !anonymous) {
-    return <Navigate to={redirectUserPath} replace />;
   }
 
   return children;
 };
 
-export default ProtectedRoute;
+export default ProtectedRoute
