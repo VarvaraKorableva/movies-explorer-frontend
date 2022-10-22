@@ -32,6 +32,7 @@ function SearchForm({ handleFindNewMovieSubmit, handleFindNewMoviesDataSubmit })
 
   const handleCheckBoxChange = (e) => {
     setCheckBoxStatus(e.target.checked)
+    handleFindNewMovieSubmit(keyWord, e.target.checked)
   }
 
   const handleSearchInputChange = (e) => {
@@ -43,6 +44,8 @@ function SearchForm({ handleFindNewMovieSubmit, handleFindNewMoviesDataSubmit })
     <>
     <div className='searchform'>
       <form className='searchform__inside' onSubmit={onSubmitMovie}>
+
+      <div className='searchform__formwrapper'>
       <div className='searchform__loop'></div>
         <fieldset className='searchform__fieldset'>
           <input className='searchform__input'
@@ -56,23 +59,27 @@ function SearchForm({ handleFindNewMovieSubmit, handleFindNewMoviesDataSubmit })
             {error ? 'Введите ключевое слово': ''}
           </span>
         </fieldset>
-        <button className='searchform__button_active' type='submit'></button>
+        <button
+          className='searchform__button_active'
+          type='submit'
+          onChange={handleCheckBoxChange}>
+        </button>
+        </div>
+
+        <div className='wrapper'>
+          <label className='checkbox'>
+          <input
+            className='checkbox__input'
+            type='checkbox'
+            onChange={handleCheckBoxChange}
+            checked={checkBoxStatus}>
+          </input>
+          <div className='checkbox__div'></div>
+          </label>
+          <p className='filtercheckbox'>Короткометражки</p>
+        </div>
       </form>
     </div>
-
-    <div className='wrapper'>
-      <label className='checkbox'>
-        <input
-          className='checkbox__input'
-          type='checkbox'
-          onChange={handleCheckBoxChange}
-          checked={checkBoxStatus}>
-        </input>
-        <div className='checkbox__div'></div>
-      </label>
-      <p className='filtercheckbox'>Короткометражки</p>
-    </div>
-
     </>
     )
   }

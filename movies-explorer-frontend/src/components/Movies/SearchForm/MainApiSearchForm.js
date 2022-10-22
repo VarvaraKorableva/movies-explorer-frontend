@@ -16,6 +16,7 @@ function MainApiSearchForm({ handleFindSavedMovieSubmit }) {
 
   const handleCheckBoxChange = (e) => {
     setCheckBoxStatus(e.target.checked)
+    handleFindSavedMovieSubmit(keyWord, e.target.checked)
   }
 
   const handleSearchInputChange = (e) => {
@@ -38,6 +39,7 @@ function MainApiSearchForm({ handleFindSavedMovieSubmit }) {
     <div className='searchform'>
       <form className='searchform__inside' onSubmit={onSubmitSavedMovie}>
 
+        <div className='searchform__formwrapper'>
         <div className='searchform__loop'></div>
         <fieldset className='searchform__fieldset'>
           <input className='searchform__input'
@@ -57,8 +59,7 @@ function MainApiSearchForm({ handleFindSavedMovieSubmit }) {
           onChange={handleCheckBoxChange}
         >
         </button>
-      </form>
-    </div>
+      </div>
 
       <div className='wrapper'>
         <label className='checkbox'>
@@ -73,6 +74,10 @@ function MainApiSearchForm({ handleFindSavedMovieSubmit }) {
         </label>
         <p className='filtercheckbox'>Короткометражки</p>
       </div>
+
+      </form>
+    </div>
+
     </>
     )
   }
