@@ -181,8 +181,9 @@ function App() {
       })
       .catch((err) => {
         navigate('/signup')
-        console.log(`Ошибка проверки токена: ${err}`);
-        setLoggedIn(false);
+        console.log(`Ошибка проверки токена: ${err}`)
+        setLoggedIn(false)
+        handleSignOut()
         });
 
   }
