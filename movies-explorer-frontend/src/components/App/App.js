@@ -255,10 +255,11 @@ function App() {
 
   const handleSavedCardDelete = (savedMovie) => {
     MainApi.deleteMovies(savedMovie._id)
-    MainApi.getSavedMovies()
-    .then((data) => {
-      setSavedMovies(data.data)
-    })
+      .then(()=>{
+        setSavedMovies((movies) =>
+          movies.filter((m) => m._id !== savedMovie._id)
+        )
+      })
       .catch((err) => {
         console.log(err);
       })
