@@ -1,0 +1,134 @@
+.searchform {
+  margin-left: 70px;
+  margin-right: 70px;
+  padding-top: 70px;
+  margin-bottom: 30px;
+  max-width: 1140px;
+}
+
+@media screen and (max-width: 800px) {
+  .searchform {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .searchform {
+    margin-left: 14px;
+    margin-right: 14px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .searchform  {
+    margin: auto;
+    padding-top: 70px;
+    margin-bottom: 30px;
+    min-width: 1140px;
+  }
+}
+
+.searchform__inside {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  border: none;
+}
+
+.searchform__fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  width: 100%;
+}
+
+.searchform__loop {
+  border-radius: 50%;
+  border: 1px solid #E8E8E8;
+  background-image: url(../../../images/loop.svg);
+  background-repeat: no-repeat;
+  min-width: 34px;
+  min-height: 34px;
+  margin-bottom: 15px;
+  margin-right: 15px;
+}
+
+@media screen and (max-width: 500px) {
+  .searchform__loop {
+    display: none;
+  }
+}
+
+.searchform__input {
+  border: none;
+  cursor: pointer;
+  min-height: 40px;
+}
+
+.searchform__input::placeholder {
+  font-size: 24px;
+  font-weight: 500;
+  color: #A0A0A0;
+  text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+  .searchform__input::placeholder {
+    font-size: 18px;
+    text-align: start;
+  }
+}
+
+.searchform__button_active {
+  background-color: #FF6838;
+  background-image: url(../../../images/loop_COLOR_invisible.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 80px;
+  height: 34px;
+  border-radius: 48px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 15px;
+  margin-left: 20px;
+  opacity: 1;
+  transition: 0.3s ease;
+}
+
+.searchform__button_active:hover {
+  transition: 0.3s ease;
+  opacity: 0.5;
+}
+
+.searchform__button {
+  background-color: #ebb2a0;
+  background-image: url(../../../images/loop_COLOR_invisible.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 80px;
+  height: 34px;
+  border-radius: 48px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 15px;
+  margin-left: 20px;
+  opacity: 1;
+  transition: 0.3s ease;
+}
+
+.searchform__inputmistake {
+  color: #EE3465;
+  font-weight: 400;
+  font-size: 10px;
+  margin: auto;
+  margin-top: 5px;
+}
+
+.searchform__formwrapper {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #E8E8E8;
+  margin-bottom: 30px;
+}
