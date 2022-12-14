@@ -180,7 +180,7 @@ function App() {
         navigate('/')
       })
       .catch((err) => {
-        navigate('/signup')
+        //navigate('/signup')
         console.log(`Ошибка проверки токена: ${err}`)
         setLoggedIn(false)
         handleSignOut()
@@ -270,19 +270,24 @@ function App() {
 return (
   <CurrentUserContext.Provider value={currentUser}>
   <div className='page'>
+
     <Header
       loggedIn={loggedIn}
       isBurgerMenuCliked={handleBurgerMenuClick}>
     </Header>
-  <Routes>
-    <Route index element={<Main />} />
 
-    <Route
-      exact path="/"
-      element={
-        <Main/>
-      }>
-    </Route>
+  <Routes>
+
+  <Route index element={<Main />} />
+
+  <Route
+    exact path="/"
+    element={
+      <Main/>
+    }>
+  </Route>
+
+
 
     <Route
       path="/movies"
@@ -334,29 +339,21 @@ return (
     <Route
       path="/signin"
       element={
-        loggedIn ? (
-          <Navigate to="/movies" replace />
-        ):
-        ( <Login
-            handleLoginSubmit={handleLoginSubmit}
-            errorMessage={errorMessage}
-            logError={logError}/>
-        )
-          }>
+        <Login
+          handleLoginSubmit={handleLoginSubmit}
+          errorMessage={errorMessage}
+          logError={logError}/>
+      }>
     </Route>
 
     <Route
       path="/signup"
       element={
-        loggedIn ? (
-          <Navigate to="/movies" replace />
-        ) : (
-            <Register
-            handleRegSubmit={handleRegSubmit}
-            errorMessage={errorMessage}
-            error={error}
-          />
-        )
+        <Register
+          handleRegSubmit={handleRegSubmit}
+          errorMessage={errorMessage}
+          error={error}
+        />
       }>
     </Route>
 
