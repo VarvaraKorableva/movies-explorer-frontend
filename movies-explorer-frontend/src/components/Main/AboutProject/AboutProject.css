@@ -1,0 +1,186 @@
+.aboutproject {
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
+@media screen and (max-width: 1000px) {
+  .aboutproject {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .aboutproject {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+}
+
+.aboutproject__title {
+  border-bottom: 1px solid black;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -4%;
+  margin-top: 100px;
+  margin-bottom: 0;
+  padding-bottom: 23px;
+}
+
+@media screen and (max-width: 1000px) {
+  .aboutproject__title {
+    margin-top: 90px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .aboutproject__title {
+    font-size: 18px;
+  }
+}
+
+.aboutproject__discriptionlist {
+    display: flex;
+    margin-top: 70px;
+    margin-bottom: 110px;
+    padding-left: 0;
+    justify-content: space-between;
+}
+
+@media screen and (max-width: 650px) {
+  .aboutproject__discriptionlist {
+    flex-direction: column;
+    margin-bottom: 93px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .aboutproject__discriptionlist {
+    margin-bottom: 60px;
+  }
+}
+
+.aboutproject__discriptionlistcolumn {
+  width: 550px;
+  list-style-type: none;
+  margin-right: 40px;
+  padding-left: 0;
+}
+
+.aboutproject__discriptionlistcolumn :last-of-type {
+  margin-right: 0;
+}
+
+@media screen and (max-width: 650px) {
+  .aboutproject__discriptionlistcolumn {
+    width: 100%;
+    margin-bottom: 56px;
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .aboutproject__discriptionlistcolumn:last-of-type {
+    margin: 0;
+  }
+}
+
+.aboutproject__weekslist {
+  display: flex;
+  max-width: 100%;
+  padding-left: 0;
+  margin-bottom: 110px;
+  height: 36px;
+}
+
+@media screen and (max-width: 500px) {
+  .aboutproject__weekslist {
+    margin-bottom: 60px;
+  }
+}
+
+.aboutproject__weekslistcolumnfirst {
+  list-style-type: none;
+  width: 20%;
+}
+
+.aboutproject__weekslistcolumnsecond {
+  list-style-type: none;
+  width: 80%;
+}
+
+.aboutproject__firstweek {
+  background-color: #2BE080;
+  height: 36px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+@media screen and (max-width: 500px) {
+  .aboutproject__firstweek {
+    font-size: 11px;
+  }
+}
+
+.aboutproject__fourweek {
+  background-color: #F2F2F2;
+  height: 36px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+}
+
+@media screen and (max-width: 500px) {
+  .aboutproject__fourweek {
+    font-size: 11px;
+  }
+}
+
+.aboutproject__weekslistlink {
+  color: #A0A0A0;
+  height: 36px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+}
+
+@media screen and (max-width: 500px) {
+  .aboutproject__weekslistlink {
+    font-size: 11px;
+  }
+}
+
+.aboutproject__texttitle {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: auto;
+  letter-spacing: -4%;
+  margin: 0;
+  margin-bottom: 26px;
+}
+
+.aboutproject__text {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+@media screen and (max-width: 1000px) {
+  .aboutproject__text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
