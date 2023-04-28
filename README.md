@@ -1,9 +1,9 @@
 
-## Project "Movies-explorer-frontend"
+# Project "Movies-explorer-frontend"
 
 The project allows you to search for movies, add to favorites, remove from favorites, register, log in, change information about yourself. 
 
-# Technologies
+## Technologies
 + React
 + JavaScript
 + Fetch API
